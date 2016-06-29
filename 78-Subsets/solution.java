@@ -2,7 +2,7 @@ public class Solution {
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> res = new ArrayList<List<Integer>>();
         
-        backtrack(nums, 0, new ArrayList<Integer>, res);
+        backtrack(nums, 0, new ArrayList<Integer>(), res);
         return res;
     }
     
