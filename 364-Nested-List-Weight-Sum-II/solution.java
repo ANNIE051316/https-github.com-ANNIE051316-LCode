@@ -17,36 +17,23 @@
  */
 public class Solution {
     public int depthSumInverse(List<NestedInteger> nestedList) {
-        
-        int height = height(nestedList);
-        return sumHelper(nestedList, height);
-    }
-    
-    public int sumHelper(List<NestedInteger> nestedList, int height) {
-        int res = 0;
-        for(NestedInteger nested : nestedList) {
-            if(nested.isInteger()) {
-                res += nested.getInteger() * height;
+        int weighted = 0;
+        int unweighted = 0;
+        while(nestedList.size() != 0) {
+            List<NestedInteger> nextLevel = new ArrayList();
+            for(NestedInteger nested : nestedList) {
+                if(nested.isInteger()) {
+                    unweighted += nested.getInteger();
+                }
+                else {
+                    nextLevel.addAll(nested.getList());
+                }
             }
-            else {
-                res += sumHelper(nested.getList(), height - 1);
-            }
+            
+            weighted += unweighted;
+            nestedList = nextLevel;
         }
         
-        return res;
-    }
-    
-    public int height(List<NestedInteger> nestedList) {
-        int res = 0;
-        for(NestedInteger nested : nestedList) {
-            if(nested.isInteger()) {
-                res = Math.max(1, res);
-            }
-            else {
-                res = Math.max(res, 1 + height(nested.getList()));
-            }
-        }
-        
-        return res;
+        return weighted;
     }
 }
