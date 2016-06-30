@@ -8,28 +8,27 @@
  */
 public class Solution {
     public ListNode plusOne(ListNode head) {
-        int carry = helper(head, 1);
-        if(carry == 0) {
-            return head;
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode i = dummy, j = dummy;
+        while(j.next != null) {
+            if(j.val < 9) {
+                i = j;
+            }
+            j = j.next;
+        }
+        
+        if(j.val < 9) {
+            j.val++;
         }
         else {
-            ListNode h = new ListNode(carry);
-            h.next = head;
-            return h;
-        }
-    }
-    
-    public int helper(ListNode node, int carry) {
-        if(node == null || carry == 0) {
-            return carry;
+            i.val++;
+            while(i.next != null) {
+                i = i.next;
+                i.val = 0;
+            }
         }
         
-        carry =  helper(node.next, carry);
-        
-        carry += node.val;
-        node.val = carry % 10;
-        carry /= 10;
-        return carry;
-        
+        return dummy.val == 0 ? dummy.next : dummy;
     }
 }
