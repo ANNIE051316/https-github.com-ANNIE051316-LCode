@@ -1,7 +1,7 @@
 public class Solution {
     public int[] getModifiedArray(int length, int[][] updates) {
         int[]  res = new int[length];
-        for(int[] update :　updates) {
+        for(int[] update : updates) {
             if(update[0] > 0) {
                 res[update[0] - 1] -= update[2];
             }
