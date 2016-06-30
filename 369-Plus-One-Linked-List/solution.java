@@ -8,41 +8,28 @@
  */
 public class Solution {
     public ListNode plusOne(ListNode head) {
-        if(head == null) {
-            return new ListNode(1);
+        int carry = helper(head, 1);
+        if(carry == 0) {
+            return head;
         }
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
-        int carry = 1;
-        while(head.next != null) {
-            ListNode tmp = head.next;
-            head.next = tmp.next;
-            tmp.next = dummy.next;
-            dummy.next = tmp;
+        else {
+            ListNode h = new ListNode(carry);
+            h.next = head;
+            return h;
         }
-        
-        ListNode cur = dummy.next;
-        while(carry != 0) {
-            carry += cur.val;
-            cur.val = carry % 10;
-            carry /= 10;
-            if(cur.next == null) {
-                if(carry != 0) {
-                    cur.next = new ListNode(carry);
-                }
-                break;
-            } 
-            cur = cur.next;
-        }
-        cur = dummy.next;
-        while(cur.next != null) {
-            ListNode tmp = cur.next;
-            cur.next = tmp.next;
-            tmp.next = dummy.next;
-            dummy.next = tmp;
+    }
+    
+    public int helper(ListNode node, int carry) {
+        if(node == null || carry == 0) {
+            return carry;
         }
         
-        return dummy.next;
+        carry =  helper(node.next, carry);
+        
+        carry += node.val;
+        node.val = carry % 10;
+        carry /= 10;
+        return carry;
         
     }
 }
