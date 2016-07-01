@@ -6,31 +6,21 @@ public class Solution {
         
         int minx = Integer.MAX_VALUE;
         int maxx = Integer.MIN_VALUE;
-        Map<Integer, Set<Integer>> map = new HashMap();
+        Set<String> set = new HashSet<String>();
         for(int[] point : points) {
             minx = Math.min(minx, point[0]);
             maxx = Math.max(maxx, point[0]);
-            if(!map.containsKey(point[1])) {
-                map.put(point[1], new HashSet<Integer>());
-            }
-            
-            if(!map.get(point[1]).contains(point[0])) {
-                map.get(point[1]).add(point[0]);
-            }
+            String str = point[0] + "a" + point[1];
+            set.add(str);
         }
-        
-        double candidate = minx +  (maxx - minx) / 2;
         
         int target = minx + maxx;
         
-        for(Set<Integer> set : map.values()) {
-            Iterator<Integer> iter = set.iterator();
-            while(iter.hasNext()) {
-                    int cur = iter.next();
-                    int reflect = target - cur;
-                    if(!set.contains(reflect)) {
-                        return false;
-                    }
+        for(int[] point : points) {
+           // int reflect = target - point[0];
+            String str = (target - point[0]) +"a" + point[1];
+            if(!set.contains(str)) {
+                return false;
             }
         }
         
