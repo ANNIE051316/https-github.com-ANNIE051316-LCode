@@ -16,14 +16,14 @@ public class Solution {
         StringBuilder sb = new StringBuilder();
         int curIndex = 0;
         while(curIndex < len) {
-            int candidatePos = findMaxCandidate(count, index, curIndex, k);
+            int candidatePos = findMaxCandidate(count, index, curIndex);
             if(candidatePos == -1) {
                 return "";
             } 
             
             sb.append((char)(candidatePos + 'a'));
             count[candidatePos]--;
-            index[candidatePos] = curIndex + 1;
+            index[candidatePos] = curIndex + k;
             curIndex++;
         }
         
@@ -34,7 +34,7 @@ public class Solution {
         int candidatePos = -1;
         int curMax = 0;
         for(int i = 0; i < 26; i++) {
-            if(count[i] > 0 && (index[i] == 0 || curIndex - index[i] >= k - 1) && count[i] > curMax) {
+            if(count[i] > 0 && count[i] > curMax && index[i] <= curIndex) {
                 curMax = count[i];
                 candidatePos = i;
             }
