@@ -10,9 +10,6 @@ public class HitCounter {
     /** Record a hit.
         @param timestamp - The current timestamp (in seconds granularity). */
     public void hit(int timestamp) {
-        while(!queue.isEmpty() && timestamp - queue.peek() >= 300) {
-            queue.poll();
-        }
         queue.offer(timestamp);
     }
     
