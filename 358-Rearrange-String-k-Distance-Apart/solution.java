@@ -1,50 +1,49 @@
-import javafx.util.Pair;
 public class Solution {
     public String rearrangeString(String str, int k) {
         if(str == null || str.length() == 0) {
             return "";
         }
         
+        Map<Character, Integer> map = new HashMap<Character, Integer>();
         int len = str.length();
-        int[] count = new int[26];
         for(int i = 0; i < len; i++) {
             char c = str.charAt(i);
-            count[c - 'a']++;
-        }
-        
-        PriorityQueue<Pair<Character, Integer>> pq = new PriorityQueue<Pair<Character, Integer>>(11, new Comparator<Pair>() {
-            @Override
-            public int compare(Pair p1, Pair p2){
-                int v1 = (int)p1.getValue();
-                int v2 = (int)p2.getValue();
-                if(v1 == v2) {
-                    return (char)p1.getKey() - (char)p2.getKey();
-                } 
-                return v2 - v1;
-            } 
-            });
-            
-        for(int i = 0; i < 26; i++) {
-            if(count[i] != 0) {
-                Pair<Character, Integer> tmp = new Pair<Character, Integer>((char)(i + 'a'), count[i]);
-                pq.offer(tmp);
+            if(map.containsKey(c)) {
+                map.put(c, map.get(c) + 1);
+            }
+            else {
+                map.put(c, 1);
             }
         }
         
+        PriorityQueue<Map.Entry<Character, Integer>> pq = new PriorityQueue(11, new Comparator<Map.Entry<Character, Integer>>(){
+            @Override
+            public int compare(Map.Entry<Character, Integer> e1, Map.Entry<Character, Integer> e2) {
+                int diff = e2.getValue() - e1.getValue();
+                if(diff == 0) {
+                    return e1.getKey() - e2.getKey();
+                }
+                
+                return diff;
+                
+            }
+        });
+        
+        pq.addAll(map.entrySet());
         StringBuilder sb = new StringBuilder();
-        Queue<Pair> queue = new LinkedList<Pair>();
+        List<Map.Entry<Character, Integer>> tmpList = new ArrayList<Map.Entry<Character, Integer>>();
+        
         while(!pq.isEmpty()) {
-            Pair cur = pq.poll();
-            char c = (char)cur.getKey();
-            sb.append(c);
-            queue.offer(new Pair(c, --count[c - 'a']));
-            
-            if(queue.size() < k) {
+            Map.Entry<Character, Integer> current = pq.poll();
+            sb.append(current.getKey());
+            current.setValue(current.getValue() - 1);
+            tmpList.add(current);
+            if(tmpList.size() < k) {
                 continue;
             }
-            Pair head = queue.poll();
-            if((int)head.getValue() != 0) {
-                pq.offer(head);
+            Map.Entry<Character, Integer> front = tmpList.poll(0);
+            if(front.getValue() != 0) {
+                pq.offer(front);
             }
         }
         
