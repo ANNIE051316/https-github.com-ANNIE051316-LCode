@@ -30,7 +30,7 @@ public class Solution {
         return sb.toString();
     }
     
-    public int findMaxCandidate(int[] count, int[] index, int curIndex, int k) {
+    public int findMaxCandidate(int[] count, int[] index, int curIndex) {
         int candidatePos = -1;
         int curMax = 0;
         for(int i = 0; i < 26; i++) {
