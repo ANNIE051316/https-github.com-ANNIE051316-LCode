@@ -31,7 +31,7 @@ public class Solution {
         
         pq.addAll(map.entrySet());
         StringBuilder sb = new StringBuilder();
-        List<Map.Entry<Character, Integer>> tmpList = new LinkedList<Map.Entry<Character, Integer>>();
+        queue<Map.Entry<Character, Integer>> tmpList = new LinkedList<Map.Entry<Character, Integer>>();
         
         while(!pq.isEmpty()) {
             Map.Entry<Character, Integer> current = pq.poll();
