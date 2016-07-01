@@ -31,7 +31,7 @@ public class Solution {
         
         pq.addAll(map.entrySet());
         StringBuilder sb = new StringBuilder();
-        queue<Map.Entry<Character, Integer>> tmpList = new LinkedList<Map.Entry<Character, Integer>>();
+        Queue<Map.Entry<Character, Integer>> tmpList = new LinkedList<Map.Entry<Character, Integer>>();
         
         while(!pq.isEmpty()) {
             Map.Entry<Character, Integer> current = pq.poll();
@@ -41,7 +41,7 @@ public class Solution {
             if(tmpList.size() < k) {
                 continue;
             }
-            Map.Entry<Character, Integer> front = tmpList.poll(0);
+            Map.Entry<Character, Integer> front = tmpList.poll();
             if(front.getValue() != 0) {
                 pq.offer(front);
             }
