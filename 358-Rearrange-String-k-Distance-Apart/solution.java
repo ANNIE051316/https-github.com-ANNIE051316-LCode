@@ -4,49 +4,42 @@ public class Solution {
             return "";
         }
         
-        Map<Character, Integer> map = new HashMap<Character, Integer>();
+        int count[] = new int[26];
+        int index[] = new int[26];
+        
         int len = str.length();
         for(int i = 0; i < len; i++) {
             char c = str.charAt(i);
-            if(map.containsKey(c)) {
-                map.put(c, map.get(c) + 1);
-            }
-            else {
-                map.put(c, 1);
-            }
+            count[c - 'a']++;
         }
         
-        PriorityQueue<Map.Entry<Character, Integer>> pq = new PriorityQueue(11, new Comparator<Map.Entry<Character, Integer>>(){
-            @Override
-            public int compare(Map.Entry<Character, Integer> e1, Map.Entry<Character, Integer> e2) {
-                int diff = e2.getValue() - e1.getValue();
-                if(diff == 0) {
-                    return e1.getKey() - e2.getKey();
-                }
-                
-                return diff;
-                
-            }
-        });
-        
-        pq.addAll(map.entrySet());
         StringBuilder sb = new StringBuilder();
-        Queue<Map.Entry<Character, Integer>> tmpList = new LinkedList<Map.Entry<Character, Integer>>();
+        int curIndex = 0;
+        while(curIndex < len) {
+            int candidatePos = findMaxCandidate(count, index, curIndex, k);
+            if(candidatePos == -1) {
+                return "";
+            } 
+            
+            sb.append((char)(candidatePos + 'a'));
+            count[candidatePos]--;
+            index[candidatePos] = curIndex + 1;
+            curIndex++;
+        }
         
-        while(!pq.isEmpty()) {
-            Map.Entry<Character, Integer> current = pq.poll();
-            sb.append(current.getKey());
-            current.setValue(current.getValue() - 1);
-            tmpList.add(current);
-            if(tmpList.size() < k) {
-                continue;
-            }
-            Map.Entry<Character, Integer> front = tmpList.poll();
-            if(front.getValue() != 0) {
-                pq.offer(front);
+        return sb.toString();
+    }
+    
+    public int findMaxCandidate(int[] count, int[] index, int curIndex, int k) {
+        int candidatePos = -1;
+        int curMax = 0;
+        for(int i = 0; i < 26; i++) {
+            if(count[i] > 0 && (index[i] == 0 || curIndex - index[i] >= k - 1) && count[i] > curMax) {
+                curMax = count[i];
+                candidatePos = i;
             }
         }
         
-        return sb.length() != len ? "" : sb.toString();
+        return candidatePos;
     }
 }
