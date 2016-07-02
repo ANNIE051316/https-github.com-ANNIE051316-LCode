@@ -1,21 +1,23 @@
 public class MovingAverage {
-    Queue<Integer> queue;
-    int windowsize;
-    int curSum = 0;
+    private int[] window;
+    private int n, insert;
+    private long sum;
+    
     /** Initialize your data structure here. */
     public MovingAverage(int size) {
-        queue = new LinkedList<Integer>();
-        this.windowsize = size;
+        window = new int[size];
     }
     
     public double next(int val) {
-        if(queue.size() == this.windowsize) {
-            curSum -= queue.poll();
+        if(n < window.length) {
+            n++;
         }
+        sum -= window[insert];
+        window[insert] = val;
+        sum += val;
+        insert = (insert + 1) % window.length;
         
-        queue.offer(val);
-        curSum += val;
-        return (double)curSum / queue.size();
+        return (double)sum / n;
     }
 }
 
