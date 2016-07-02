@@ -28,7 +28,9 @@ public class Solution {
     
     public void dfs(int index, boolean[] visited, Set<Integer>[] adj) {
         visited[index] = true;
-        
+        if(adj[index] == null) {
+            return;
+        }
         for(Integer i : adj[index]) {
             if(!visited[i]) {
                 dfs(i, visited, adj);
