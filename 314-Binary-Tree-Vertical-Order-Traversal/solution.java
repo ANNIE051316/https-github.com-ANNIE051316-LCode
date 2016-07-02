@@ -20,6 +20,9 @@ Retrieve result from cols
 public class Solution {
     public List<List<Integer>> verticalOrder(TreeNode root) {
         List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if(root == null) {
+            return res;
+        }
         int min = 0, max = 0;
         Map<Integer, List<Integer>> map = new HashMap<Integer, List<Integer>>();
         Queue<Integer> cols = new LinkedList<Integer>();
