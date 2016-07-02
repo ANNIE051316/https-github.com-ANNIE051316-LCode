@@ -1,15 +1,15 @@
 public class Solution {
     public int countComponents(int n, int[][] edges) {
         int count = 0;
-        Set<Integer>[] adj = new HashSet[n];
+        List<Integer>[] adj = new ArrayList[n];
         boolean[] visited = new boolean[n];
         for(int[] edge : edges) {
             if(adj[edge[0]] == null) {
-                adj[edge[0]] = new HashSet<Integer>();
+                adj[edge[0]] = new ArrayList<Integer>();
             }
             
             if(adj[edge[1]] == null) {
-                adj[edge[1]] = new HashSet<Integer>();
+                adj[edge[1]] = new ArrayList<Integer>();
             }
             
             adj[edge[0]].add(edge[1]);
