@@ -1,10 +1,14 @@
 public class ValidWordAbbr {
-    Set<String> abbr;
+   Map<String, Set<String>> map;
 
     public ValidWordAbbr(String[] dictionary) {
-        abbr = new HashSet<String>();
+        map = new HashMap<String, Set<String>>();
         for(String s : dictionary) {
-            abbr.add(getAbbr(s));
+            String ab = getAbbr(s);
+            if(!map.containsKey(ab)) {
+                map.put(ab, new HashSet<String>());
+            }
+            map.get(ab).add(s);
         }
     }
     
@@ -14,12 +18,13 @@ public class ValidWordAbbr {
             return s;
         }
         else {
-            return s.charAt(0) + (len - 2) + s.charAt(len - 1);
+            return s.charAt(0) + String.valueOf(len - 2) + s.charAt(len - 1);
         }
     }
 
     public boolean isUnique(String word) {
-        return !abbr.contains(getAbbr(word));
+        String ab = getAbbr(word);
+        return !map.containsKey(ab) || (map.get(ab).size() == 1 && map.get(ab).contains(word));
     }
 }
 
