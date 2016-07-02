@@ -1,9 +1,13 @@
 public class TicTacToe {
-    int[][] gameboard;
+    int[] cols;
+    int[] rows;
+    int diagonal = 0;
+    int anti_diagonal = 0;
 
     /** Initialize your data structure here. */
     public TicTacToe(int n) {
-        gameboard = new int[n][n];
+        cols = new int[n];
+        rows = new int[n];
     }
     
     /** Player {player} makes a move at ({row}, {col}).
@@ -15,61 +19,36 @@ public class TicTacToe {
                 1: Player 1 wins.
                 2: Player 2 wins. */
     public int move(int row, int col, int player) {
-        gameboard[row][col] = player;
-        int count = 0;
-        for(int i = 0; i < gameboard[0].length; i++) {
-            if(gameboard[row][i] != player){
-                break;
+        if(player == 1) {
+            cols[col]++;
+            rows[row]++;
+            if(row == col) {
+                diagonal++;
             }
-            else {
-                count++;
+            
+            if(row + col == cols.length - 1) {
+                anti_diagonal++;
             }
-        }
-        
-        if(count == gameboard.length) {
-            return player;
-        }
-        count = 0;
-        
-        for(int i = 0; i < gameboard.length; i++) {
-            if(gameboard[i][col] != player) {
-                break;
-            }
-            count++;
-        }
-        
-        if(count == gameboard.length) {
-            return player;
-        }
-        
-        
-        if(row == col) {
-            count = 0;
-            for(int i = 0; i < gameboard.length; i++) {
-                if(gameboard[i][i] != player) {
-                    break;
-                }
-                count++;
-            }
-            if(count == gameboard.length) {
+            if(cols[col] == cols.length || rows[row] == cols.length || diagonal == cols.length || anti_diagonal == cols.length) {
                 return player;
-            }
+             }
         }
-        
-        if(row + col == gameboard.length - 1) {
-            count = 0;
-            for(int i = 0; i < gameboard.length; i++) {
-                if(gameboard[i][gameboard.length - 1 - i] != player) {
-                    break;
-                }
-                count++;
+        else {
+            cols[col]--;
+            rows[row]--;
+            if(row == col) {
+                diagonal--;
             }
-            if(count == gameboard.length) {
+            
+            if(row + col == cols.length - 1) {
+                anti_diagonal--;
+            }
+            if(cols[col] == -cols.length || rows[row] == -cols.length || diagonal == -cols.length || anti_diagonal == -cols.length) {
                 return player;
-            }
+             }
         }
-        
         return 0;
+
     }
 }
 
