@@ -26,7 +26,7 @@ public class Solution {
         return count;
     }
     
-    public void dfs(int index, boolean[] visited, Set<Integer>[] adj) {
+    public void dfs(int index, boolean[] visited, List<Integer>[] adj) {
         visited[index] = true;
         if(adj[index] == null) {
             return;
