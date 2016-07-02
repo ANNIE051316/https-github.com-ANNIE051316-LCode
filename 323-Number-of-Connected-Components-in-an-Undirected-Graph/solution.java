@@ -13,8 +13,17 @@ public class Solution {
         }
         int count = n;
         for(int[] edge : edges) {
-            if(!find(id, edge[0], edge[1])) { 
-                unite(id, sz, edge[0], edge[1]);
+            int i = root(id, edge[0]);
+            int j = root(id, edge[1]);
+            if(i != j) {
+                if(sz[i] < sz[j]) {
+                    id[i] = j;
+                    sz[j] += sz[i];
+                }
+                else {
+                    id[j] = i;
+                    sz[i] += sz[j];
+                }
                 count--;
             }
         }
@@ -22,9 +31,6 @@ public class Solution {
         return count;
     }
     
-    public boolean find(int[] id, int p, int q) {
-        return root(id, p) == root(id, q);
-    }
     
     private int root(int[] id, int i) {
         while(id[i] != i) {
@@ -34,18 +40,5 @@ public class Solution {
         return i;
     }
     
-    public void unite(int[] id, int[] sz, int p, int q) {
-        int i = root(id, p);
-        int j = root(id, q);
-        
-        if(sz[i] < sz[j]) {
-            id[i] = j;
-            sz[j] += sz[i];
-        }
-        else {
-            id[j] = i;
-            sz[i] += sz[j];
-        }
-        
-    }
+  
 }
