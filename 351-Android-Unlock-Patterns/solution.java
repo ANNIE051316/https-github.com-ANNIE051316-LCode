@@ -1,48 +1,36 @@
 public class Solution {
     public int numberOfPatterns(int m, int n) {
+        int[][] skip = new int[10][10];
+        skip[1][3] = skip[3][1] = 2;
+        skip[1][7] = skip[7][1] = 4;
+        skip[7][9] = skip[9][7] = 8;
+        skip[3][9] = skip[9][3] = 6;
+        skip[1][9] = skip[9][1] = skip[2][8] = skip[8][2] = skip[3][7] = skip[7][3] = skip[4][6] = skip[6][4] = 5;
+        
         int res = 0;
+        boolean[] visited = new boolean[10];
         for(int i = m; i <= n; i++) {
-            res += dfs(0, 1, new boolean[9], i - 1) * 4;
-            res += dfs(0, 2, new boolean[9], i - 1) * 4;
-            res += dfs(0, 5, new boolean[9], i - 1);
+            res += dfs(0, 1, visited, skip, i - 1) * 4;
+            res += dfs(0, 2, visited, skip, i - 1) * 4;
+            res += dfs(0, 5, visited, skip, i - 1);
         }
         
         return res;
     }
     
-    public int dfs(int last, int cur, boolean[] visited, int numToAdd) {
+    public int dfs(int last, int cur, boolean[] visited, int[][] skip, int numToAdd) {
         if(numToAdd == 0) {
             return 1;
         }
-        visited[cur - 1] = true;
+        
+        visited[cur] = true;
         int res = 0;
         for(int i = 1; i <= 9; i++) {
-            if(isValid(visited, i, cur)) {
-                res += dfs(cur, i, visited, numToAdd -1);
+            if(!visited[i] && (skip[cur][i] == 0 || visited[skip[cur][i]])) {
+                res += dfs(cur, i, visited, skip, numToAdd - 1);
             }
         }
-        visited[cur - 1] = false;
+        visited[cur] = false;
         return res;
-    }
-    
-    
-    public boolean isValid(boolean[] visited, int cur, int last) {
-        if(visited[cur - 1]) {
-            return false;
-        }
-        int min = Math.min(cur, last);
-        int max = Math.max(cur, last);
-        int mid = (min + max) / 2;
-        if((min == 1 || min == 4 || min == 7) && max == min + 2) {
-            return visited[mid - 1];
-        }
-        
-        if(min < 4 && max == min + 6) {
-            return visited[mid - 1];
-        }
-        if(min == 1 && max == 9 || min == 3 && max == 7) {
-            return visited[mid - 1];
-        }
-        return true;
     }
 }
