@@ -1,41 +1,51 @@
 public class Solution {
+    
     public int countComponents(int n, int[][] edges) {
-        int count = 0;
-        List<Integer>[] adj = new ArrayList[n];
-        boolean[] visited = new boolean[n];
-        for(int[] edge : edges) {
-            if(adj[edge[0]] == null) {
-                adj[edge[0]] = new ArrayList<Integer>();
-            }
-            
-            if(adj[edge[1]] == null) {
-                adj[edge[1]] = new ArrayList<Integer>();
-            }
-            
-            adj[edge[0]].add(edge[1]);
-            adj[edge[1]].add(edge[0]);
+        if(n <= 0) {
+            return 0;
         }
         
+        int[] id = new int[n];
+        int[] sz = new int[n];
         for(int i = 0; i < n; i++) {
-            if(!visited[i]) {
-                count++;
-                dfs(i, visited, adj);
+            id[i] = i;
+            sz[i] = 1;
+        }
+        int count = n;
+        for(int[] edge : edges) {
+            if(!find(id, edge[0], edge[1])) { 
+                unite(id, sz, edge[0], edge[1]);
+                count--;
             }
         }
         
         return count;
     }
     
-    public void dfs(int index, boolean[] visited, List<Integer>[] adj) {
-        visited[index] = true;
-        if(adj[index] == null) {
-            return;
-        }
-        for(Integer i : adj[index]) {
-            if(!visited[i]) {
-                dfs(i, visited, adj);
-            }
-        }
+    public boolean find(int[] id, int p, int q) {
+        return root(id, p) == root(id, q);
+    }
     
+    private int root(int[] id, int i) {
+        while(id[i] != i) {
+            id[i] = id[id[i]];
+            i = id[i];
+        }
+        return i;
+    }
+    
+    public void unite(int[] id, int[] sz, int p, int q) {
+        int i = root(id, p);
+        int j = root(id, q);
+        
+        if(sz[i] < sz[j]) {
+            id[i] = j;
+            sz[j] += sz[i];
+        }
+        else {
+            id[j] = i;
+            sz[i] += sz[j];
+        }
+        
     }
 }
