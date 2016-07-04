@@ -22,7 +22,7 @@ public class NumMatrix {
         
         for(int i = row; i < nums.length; i += lowBit(i + 1)) {
             for(int j = col; j < nums[0].length; j += lowBit(j + 1)) {
-                bitsums += dif;
+                bitsums[i][j] += dif;
             }
         }
     }
