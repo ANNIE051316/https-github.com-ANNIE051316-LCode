@@ -12,7 +12,7 @@ public class Solution {
         List<Integer> res = new ArrayList<Integer>();
         for(int[] position : positions) {
             
-            if(land[position[0] * m + position[1]]) {
+            if(land[position[0] * n + position[1]]) {
                 res.add(islands);
                 continue;
             }
@@ -27,31 +27,31 @@ public class Solution {
     public int helper(int m, int n, int[] id, boolean[] land, int[] sz, int[] position, int islands) {
         int x = position[0];
         int y = position[1];
-        land[x * m + y] = true;
+        land[x * n + y] = true;
         islands++;
         // up
-        if(x > 0 && land[(x -1) * m + y]) {
-           if(unite(x * m + y, (x - 1) * m + y, id, sz)) {
+        if(x > 0 && land[(x -1) * n + y]) {
+           if(unite(x * n + y, (x - 1) * n + y, id, sz)) {
                islands--;
            }
         }
         
         // left
-        if(y > 0 && land[x * m + y - 1]) {
-           if(unite(x * m + y, x * m + y - 1, id, sz)) {
+        if(y > 0 && land[x * n + y - 1]) {
+           if(unite(x * n + y, x * n + y - 1, id, sz)) {
                islands--;
            }
         }
         //down 
-        if(x < m - 1 && land[(x + 1) * m + y]) {
-           if(unite(x * m + y, (x + 1) * m + y, id, sz)) {
+        if(x < m - 1 && land[(x + 1) * n + y]) {
+           if(unite(x * n + y, (x + 1) * n + y, id, sz)) {
                islands--;
            }
         }
         
         // right
-        if(y < n - 1 && land[x * m + y + 1]) {
-           if(unite(x * m + y, x * m + y + 1, id, sz)) {
+        if(y < n - 1 && land[x * n + y + 1]) {
+           if(unite(x * n + y, x * n + y + 1, id, sz)) {
                islands--;
            }
         }
