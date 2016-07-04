@@ -10,7 +10,7 @@ public class NumMatrix {
         bitsums = new int[matrix.length][matrix[0].length];
         
         for(int i = 0; i < matrix.length; i++) {
-            for(int j = 0; j < matrix.length; j++) {
+            for(int j = 0; j < matrix[0].length; j++) {
                 update(i, j, matrix[i][j]);
             }
         }
@@ -29,7 +29,7 @@ public class NumMatrix {
         
 
     public int sumRegion(int row1, int col1, int row2, int col2) {
-        return sumHelper(row2, col2) - sumHelper(row1 - 1, col1 - 1);
+        return sumHelper(row2, col2) + sumHelper(row1 - 1, col1 - 1) - sumHelper(row1 - 1, col2) - sumHelper(row2, col1 - 1);
     }
     
     public int sumHelper(int row, int col) {
