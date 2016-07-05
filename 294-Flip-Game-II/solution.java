@@ -19,7 +19,7 @@ public class Solution {
                 continue;
             }
             String tmp = s.substring(0, i) + "--" + s.substring(i + 2);
-            if(!canWin(tmp)) {
+            if(!helper(tmp, map)) {
                 return true;
             }
             map.put(tmp, true);
