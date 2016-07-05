@@ -21,16 +21,15 @@ public class Solution {
         }
         
         for(int i = sindex; i <= strend; i++) {
-            Map<Character, String> tmpMap = new HashMap(map);
             String tmp = str.substring(sindex, i + 1);
             if(map.containsValue(tmp)) {
                 continue;
             }
-            tmpMap.put(c, tmp);
-            //map.put(c, tmp);
-            if(helper(pattern, pindex + 1, pend, str, i + 1, strend, tmpMap)) {
+            map.put(c, tmp);
+            if(helper(pattern, pindex + 1, pend, str, i + 1, strend, map)) {
                 return true;
             }
+            map.remove(c);
         }
         
         return false;
