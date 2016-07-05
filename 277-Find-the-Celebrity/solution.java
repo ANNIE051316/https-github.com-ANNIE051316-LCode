@@ -11,30 +11,46 @@ public class Solution extends Relation {
             if(lkr && !rkl) {
                 candidates.add(right);
             }
-            else if(rkl && !lkr) {
+             if(rkl && !lkr) {
                 candidates.add(left);
             }
             left++;
             right--;
         }
+        if(n % 2 == 1) {
+            candidates.add(left);
+        }
         
         while(candidates.size() > 1) {
             int sz = candidates.size();
             left = 0; right = sz - 1;
+            List<Integer> tmpCandidates = new ArrayList<Integer>();
             while(left < right) {
-                   boolean lkr = knows(left, right);
-                    boolean rkl = knows(right, left);
-                    if(lkr || !rkl) {
-                        candidates.remove(left);
-                    }
-                    if(!lkr || rkl) {
-                        candidates.remove(right);
-                    }
+                int l = candidates.get(left);
+                int r = candidates.get(right);
+                boolean lkr = knows(l, r);
+                boolean rkl = knows(r, l);
+                if(!lkr && rkl) {
+                    tmpCandidates.add(l);
+                }
+                if(lkr && !rkl) {
+                    tmpCandidates.add(r);
+                }
                 left++;
                 right--;
             }
+            
+            candidates = tmpCandidates;
         }
         
-        return candidates.size() == 0 ? -1 : candidates.get(0);
+        if(candidates.size() == 0) {
+            return -1 ;
+        }
+        for(int i = 0; i < n ; i++) {
+            if(knows(candidate.get(0), i)) {
+                return -1;
+            }
+        }
+        return candidate.get(0);
     }
 }
