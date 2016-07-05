@@ -14,7 +14,7 @@ public class Solution {
                 return root.val;
             }
             int left = closestValue(root.left, target);
-            if((double)root.val - target < Math.abs(target - left)) {
+            if(root.val - target < Math.abs(target - left)) {
                 return root.val;
             }
             else {
@@ -26,7 +26,7 @@ public class Solution {
                 return root.val;
             }
             int right = closestValue(root.right, target);
-            if(target - (double)root.val < Math.abs(right - target)) {
+            if(target - root.val < Math.abs(right - target)) {
                 return root.val;
             }
             else {
