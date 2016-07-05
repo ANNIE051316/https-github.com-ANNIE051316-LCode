@@ -16,7 +16,7 @@ public class Solution {
             return inorderSuccessor(root.right, p);
         }
         
-        TreeNode left = inorderSuccessor(root.left);
+        TreeNode left = inorderSuccessor(root.left, p);
         return left == null ? root : left;
         
     }
