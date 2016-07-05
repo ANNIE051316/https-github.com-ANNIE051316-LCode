@@ -27,6 +27,7 @@ public class Solution {
                 continue;
             }
             tmpMap.put(c, tmp);
+            //map.put(c, tmp);
             if(helper(pattern, pindex + 1, pend, str, i + 1, strend, tmpMap)) {
                 return true;
             }
