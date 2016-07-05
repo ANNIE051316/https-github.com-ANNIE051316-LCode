@@ -24,11 +24,11 @@ public class Solution extends Relation {
             while(left < right) {
                    boolean lkr = knows(left, right);
                     boolean rkl = knows(right, left);
-                    if(lkr && !rkl) {
-                        candidates.add(right);
+                    if(lkr || !rkl) {
+                        candidates.remove(left);
                     }
-                    else if(rkl && !lkr) {
-                        candidates.add(left);
+                    if(!lkr || rkl) {
+                        candidates.remove(right);
                     }
                 left++;
                 right--;
