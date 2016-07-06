@@ -2,7 +2,7 @@ public class Codec {
 
     // Encodes a list of strings to a single string.
     public String encode(List<String> strs) {
-        StringBuidler sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         for(String s : strs) {
             sb.append(s.length() + "/" + s);
         }
@@ -19,6 +19,7 @@ public class Codec {
             char c = s.charAt(index);
             if(c != '/') {
                 curlen = curlen * 10 + c - '0';
+                index++;
             }
             else {
                 
