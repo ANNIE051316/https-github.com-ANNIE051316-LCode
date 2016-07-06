@@ -22,9 +22,9 @@ public class Codec {
                 index++;
             }
             else {
-                
-                res.add(s.substring(index + 1, index + curlen + 2));
-                index = index + curlen + 2;
+                if(curlen)
+                res.add(s.substring(index + 1, index + curlen + 1));
+                index = index + curlen + 1;
                 curlen = 0;
             }
         }
