@@ -9,30 +9,12 @@
  */
 public class Solution {
     public int closestValue(TreeNode root, double target) {
-        if(root.val > target) {
-            if(root.left == null) {
-                return root.val;
-            }
-            int left = closestValue(root.left, target);
-            if(root.val - target < Math.abs(target - left)) {
-                return root.val;
-            }
-            else {
-                return left;
-            }
+        int a = root.val;
+        TreeNode kid = a < target ? root.right : root.left;
+        if(kid == null) {
+            return a;
         }
-        else {
-            if(root.right == null) {
-                return root.val;
-            }
-            int right = closestValue(root.right, target);
-            if(target - root.val < Math.abs(right - target)) {
-                return root.val;
-            }
-            else {
-                return right;
-            }
-        }
-        
+        int b = closestValue(kid, target);
+        return Math.abs(a - target) > Math.abs(b - target) ? b : a;
     }
 }
