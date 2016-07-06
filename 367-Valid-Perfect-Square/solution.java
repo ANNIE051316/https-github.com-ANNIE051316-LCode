@@ -3,7 +3,7 @@ public class Solution {
         if(num <= 0) {
             return false;
         }
-        int left = 1; int right = num;
+        int left = 1; int right = num / 2 + 1;
         
         while(left <= right) {
             int mid = left + (right - left) / 2;
