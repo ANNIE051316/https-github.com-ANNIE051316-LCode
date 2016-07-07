@@ -16,28 +16,18 @@ public class WordDistance {
         List<Integer> l2 = map.get(word2);
         int sz1 = l1.size();
         int sz2 = l2.size();
-        int index1 = l1.get(0);
-        int index2 = l2.get(0);
-        int res = Math.abs(index2 - index1);
-        int i1 = 0;
-        int i2 = 0;
-        while(i1 < sz1 && i2 < sz2) {
+        int res = Integer.MAX_VALUE;
+        int i = 0, j = 0;
+        while(i < sz1 && j < sz2) {
+            int index1 = l1.get(i);
+            int index2 = l2.get(j);
+            res = Math.min(res, Math.abs(index1 - index2));
             if(index1 < index2) {
-                i1++;
-                if(i1 >= sz1) {
-                    break;
-                }
-                index1 = l1.get(i1);
+                i++;
             }
             else {
-                i2++;
-                if(i2 >= sz2) {
-                    break;
-                }
-                index2 = l2.get(i2);
+                j++;
             }
-            
-            res = Math.min(res, Math.abs(index1 - index2));
         }
         
         return res;
