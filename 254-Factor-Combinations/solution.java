@@ -10,12 +10,6 @@ public class Solution {
             return;
         }
         
- /*       if(start == target) {
-            path.add(start);
-            res.add(new ArrayList<Integer>(path));
-            return;
-        }
-   */     
         int end = (int)Math.sqrt(target);
         
         for(int i = start; i <= end; i++) {
