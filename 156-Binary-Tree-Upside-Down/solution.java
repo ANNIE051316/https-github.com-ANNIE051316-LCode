@@ -9,24 +9,17 @@
  */
 public class Solution {
     public TreeNode upsideDownBinaryTree(TreeNode root) {
-        if(root == null) {
+        if(root == null || root.left == null) {
             return root;
         }
-        Stack<TreeNode> stack = new Stack<TreeNode>();
-        while(root != null) {
-            stack.push(root);
-            root = root.left;
-        }
-        TreeNode newroot = stack.pop();
-        TreeNode prev = newroot;
-        while(!stack.isEmpty()) {
-            TreeNode cur = stack.pop();
-            prev.left = cur.right;
-            prev.right = cur;
-            cur.left = null;
-            cur.right = null;
-            prev = cur;
-        }
+        
+        TreeNode newroot = upsideDownBinaryTree(root.left);
+        root.left.left = root.right;
+        root.left.right = root;
+        root.right = null;
+        root.left = null;
         return newroot;
+        
+        
     }
 }
