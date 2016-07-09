@@ -24,9 +24,10 @@ public class TwoSum {
 	        return true;
 	    }
 	    
-	    for(int i : map.keySet()) {
-	        int target = value - i;
-	        if(target == i) {
+	    for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
+	        int key = entry.getKey();
+	        int target = value - key;
+	        if(target == key) {
 	            continue;
 	        }
 	        else if(map.containsKey(target)){
