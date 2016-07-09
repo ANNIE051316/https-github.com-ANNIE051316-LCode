@@ -19,10 +19,10 @@ public class TwoSum {
 	public boolean find(int value) {
 	    for(int key : map.keySet()) {
 	        
-	        if(value - key = key && map.get(key) > 1) {
+	        if(value - key == key && map.get(key) > 1) {
 	            return true;
 	        }
-	        else if(map.containsKey(value - key)) {
+	        else if(value - key != key && map.containsKey(value - key)) {
 	            return true;
 	        }
 	    }
