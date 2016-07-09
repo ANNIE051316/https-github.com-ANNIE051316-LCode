@@ -19,8 +19,8 @@ public class TwoSum {
 	public boolean find(int value) {
 	    for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
 	        int key = entry.getKey();
-	        int value = entry.getValue();
-	        if(Map.containsKey(value - key) && (value - key != key || map.get(key) > 1)) {
+	        int val = entry.getValue();
+	        if(Map.containsKey(value - key) && (value - key != key || val > 1)) {
 	            return true;
 	        }
 	    }
