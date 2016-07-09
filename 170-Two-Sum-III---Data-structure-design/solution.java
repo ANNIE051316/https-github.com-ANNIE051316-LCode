@@ -20,7 +20,7 @@ public class TwoSum {
 	    for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
 	        int key = entry.getKey();
 	        int val = entry.getValue();
-	        if(Map.containsKey(value - key) && (value - key != key || val > 1)) {
+	        if(map.containsKey(value - key) && (value - key != key || val > 1)) {
 	            return true;
 	        }
 	    }
