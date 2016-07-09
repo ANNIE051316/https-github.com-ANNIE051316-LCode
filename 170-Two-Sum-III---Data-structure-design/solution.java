@@ -1,8 +1,10 @@
 public class TwoSum {
     Map<Integer, Integer> map;
+    Set<Integer> sums;
     
     TwoSum(){
          map = new HashMap<Integer, Integer>();
+         sums = new HashSet<Integer>();
     }
 
     // Add the number to an internal data structure.
@@ -12,20 +14,26 @@ public class TwoSum {
 	    }
 	    else {
 	        map.put(number, map.get(number) + 1);
+	        sums.add(2 * number);
 	    }
 	}
 
     // Find if there exists any pair of numbers which sum is equal to the value.
 	public boolean find(int value) {
-	 for (Integer i : map.keySet()) {
-			int target = value - i;
-			if (map.containsKey(target)) {
-				if (i == target && map.get(target) < 2) {
-					continue;
-				}
-				return true;
-			}
-		}
+	    if(sums.contains(value)) {
+	        return true;
+	    }
+	    
+	    for(int i : map.keySet()) {
+	        int target = value - i;
+	        if(target == i) {
+	            continue;
+	        }
+	        else if(map.containsKey(target)){
+	            sums.add(value);
+	            return true;
+	        }
+	    }
 		return false;
 	}
 }
