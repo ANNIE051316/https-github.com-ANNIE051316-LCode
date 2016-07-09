@@ -1,34 +1,28 @@
 public class Solution {
     public List<String> findStrobogrammatic(int n) {
-        List<String> res = new ArrayList<String>();
-        helper(new char[n], 0, n / 2, res);
-        return res;
+        return helper(n, n);
     }
     
-    public void helper(char[] word, int start, int end, List<String> res) {
-        if(word.length % 2 == 0 && start >= end || word.length % 2 == 1 && start > end) {
-            res.add(String.valueOf(word));
-            return;
+    public List<String> helper(int n, int m) {
+        if(n == 1) {
+            return new ArrayList<String>(Arrays.asList("0", "1", "8"));
         }
-        int left = start, right = word.length - 1 - left;
-        word[left] = '1';
-        word[right] = '1';
-        helper(word, start + 1, end, res);
-        word[left] = '8';
-        word[right] = '8';
-        helper(word, start + 1, end, res);
-        if(left != 0 || word.length == 1) {
-            word[left] = '0';
-            word[right] = '0';
-            helper(word, start + 1, end, res);
+        else if(n == 0) {
+            return new ArrayList<String>(Arrays.asList(""));
         }
-        if(left != right) {
-            word[left] = '6';
-            word[right] = '9';
-            helper(word, start + 1, end, res);
-            word[left] = '9';
-            word[right] = '6';
-            helper(word, start + 1, end, res);
+        
+        List<String> list = helper( n - 2, m);
+        List<String> res = new ArrayList<String>();
+        for(String s : list) {
+            if(n != m) {
+                res.add("0" + s + "0");
+            }
+            res.add("1" + s + "1");
+            res.add("8" + s + "8");
+            res.add("6" + s + "9");
+            res.add("9" + s + "6");
         }
+        
+        return res;
     }
 }
