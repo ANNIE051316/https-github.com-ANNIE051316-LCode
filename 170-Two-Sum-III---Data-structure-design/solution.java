@@ -13,7 +13,7 @@ public class TwoSum {
 
     // Find if there exists any pair of numbers which sum is equal to the value.
 	public boolean find(int value) {
-	    return sums.containsValue(value);
+	    return sums.contains(value);
 	}
 }
 
