@@ -1,28 +1,23 @@
 public class Solution {
     public List<String> findStrobogrammatic(int n) {
-        return helper(n, n);
-    }
-    
-    public List<String> helper(int n, int m) {
-        if(n == 1) {
-            return new ArrayList<String>(Arrays.asList("0", "1", "8"));
-        }
-        else if(n == 0) {
-            return new ArrayList<String>(Arrays.asList(""));
-        }
+        List<String> ans = new ArrayList<String>((n & 1) == 1 ? Arrays.asList("0", "1", "8") : Arrays.asList(""));
+        List<String> cur;
         
-        List<String> list = helper( n - 2, m);
-        List<String> res = new ArrayList<String>();
-        for(String s : list) {
-            if(n != m) {
-                res.add("0" + s + "0");
+        for(; n > 1; n -= 2) {
+            cur = new ArrayList<String>();
+            for(String s : ans) {
+                if(n > 3) {
+                    cur.add("0" + s + "0");
+                }
+                cur.add("1" + s + "1");
+                cur.add("8" + s + "8");
+                cur.add("6" + s + "9");
+                cur.add("9" + s + "6");
             }
-            res.add("1" + s + "1");
-            res.add("8" + s + "8");
-            res.add("6" + s + "9");
-            res.add("9" + s + "6");
+            
+            ans = cur;
         }
         
-        return res;
+        return ans;
     }
 }
