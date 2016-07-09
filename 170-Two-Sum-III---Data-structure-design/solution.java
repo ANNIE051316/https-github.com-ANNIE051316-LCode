@@ -17,7 +17,7 @@ public class TwoSum {
 
     // Find if there exists any pair of numbers which sum is equal to the value.
 	public boolean find(int value) {
-	 for (Integer i : elements.keySet()) {
+	 for (Integer i : map.keySet()) {
 			int target = value - i;
 			if (map.containsKey(target)) {
 				if (i == target && map.get(target) < 2) {
