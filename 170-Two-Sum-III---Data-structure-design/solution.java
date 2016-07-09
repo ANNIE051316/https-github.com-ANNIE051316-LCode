@@ -1,19 +1,31 @@
 public class TwoSum {
-    List<Integer> nums = new ArrayList<Integer>();
-    Set<Integer> sums = new HashSet<Integer>();
+    Map<Integer, Integer> map;
+    
+    TwoSum(){
+         map = new HashMap<Integer, Integer>();
+    }
 
     // Add the number to an internal data structure.
 	public void add(int number) {
-	    for(Integer i : nums) {
-	        sums.add(i + number);
+	    if(!map.containsKey(number)) {
+	        map.put(number, 1);
 	    }
-	    
-	    nums.add(number);
+	    else {
+	        map.put(number, map.get(number) + 1);
+	    }
 	}
 
     // Find if there exists any pair of numbers which sum is equal to the value.
 	public boolean find(int value) {
-	    return sums.contains(value);
+	    for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
+	        int key = entry.getKey();
+	        int value = entry.getValue();
+	        if(Map.containsKey(value - key) && (value - key != key || map.get(key) > 1)) {
+	            return true;
+	        }
+	    }
+	    
+	    return false;
 	}
 }
 
