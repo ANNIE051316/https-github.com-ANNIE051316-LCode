@@ -14,7 +14,7 @@ public class Solution {
                 right++;
             }
             reverse(s, left, right - 1);
-            left = right;
+            left = right + 1;
         }
         
     }
