@@ -17,17 +17,16 @@ public class TwoSum {
 
     // Find if there exists any pair of numbers which sum is equal to the value.
 	public boolean find(int value) {
-	    for(int key : map.keySet()) {
-	        
-	        if(value - key == key && map.get(key) > 1) {
-	            return true;
-	        }
-	        else if(value - key != key && map.containsKey(value - key)) {
-	            return true;
-	        }
-	    }
-	    
-	    return false;
+	 for (Integer i : elements.keySet()) {
+			int target = value - i;
+			if (elements.containsKey(target)) {
+				if (i == target && elements.get(target) < 2) {
+					continue;
+				}
+				return true;
+			}
+		}
+		return false;
 	}
 }
 
