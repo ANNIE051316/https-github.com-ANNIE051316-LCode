@@ -9,34 +9,27 @@
  */
 public class Solution {
     public int minMeetingRooms(Interval[] intervals) {
-        Arrays.sort(intervals, new Comparator<Interval>() {
-            @Override
-            
-            public int compare(Interval i1, Interval i2) {
-                if(i1.start != i2.start) {
-                    return i1.start - i2.start;
-                }
-                return i1.end - i2.end;
+        int[] starts = new int[intervals.length];
+        int[] ends = new int[intervals.length];
+        for(int i = 0; i < intervals.length; i++) {
+            starts[i] = intervals[i].start;
+            ends[i] = intervals[i].end;
+        }
+        
+        Arrays.sort(starts);
+        Arrays.sort(ends);
+        
+        int endInt = 0;
+        int count = 0;
+        for(int i = 0; i < starts.length; i++) {
+            if(starts[i] < ends[endInt]) {
+                count++;
             }
-        });
+            else {
+                endInt++;
+            }
+        }
         
-        
-       PriorityQueue<Interval> minHeap = new PriorityQueue<Interval>(11, new Comparator<Interval>() {
-           @Override
-           public int compare(Interval i1, Interval i2) {
-               return i1.end - i2.end;
-           }
-       });
-       int max = 0;
-       for(Interval interval : intervals) {
-           while(!minHeap.isEmpty() && minHeap.peek().end <= interval.start) {
-               minHeap.poll();
-           }
-           
-           minHeap.offer(interval);
-           max = Math.max(max, minHeap.size());
-       }
-       return max;
-       
+        return count;
     }
 }
