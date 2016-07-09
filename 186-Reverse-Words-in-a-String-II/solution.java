@@ -10,7 +10,7 @@ public class Solution {
         left = 0; 
         while(left < s.length) {
             right = left;
-            while(s[right] != ' ') {
+            while(right < s.length && s[right] != ' ') {
                 right++;
             }
             reverse(s, left, right - 1);
