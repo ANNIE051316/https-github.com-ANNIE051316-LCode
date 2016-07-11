@@ -1,43 +1,52 @@
 public class Solution {
     public boolean validTree(int n, int[][] edges) {
-        int[] ids = new int[n];
-        int[] sz = new int[n];
-        for(int i = 0; i < n; i++) {
-            ids[i] = i;
-            sz[i] = 1;
+        if(edges == null || edges.length == 0 || edges[0].length == 0) {
+            return n <= 1;
+        }
+        Set<Integer>[] adj = new Set[n];
+        
+        for(int i = 0; i < edges.length; i++) {
+            if(adj[edges[i][0]] == null) {
+                adj[edges[i][0]] = new HashSet<Integer>();
+            }    
+            if(adj[edges[i][1]] == null) {
+                adj[edges[i][1]] = new HashSet<Integer>();
+            }    
+            adj[edges[i][0]].add(edges[i][1]);
+            adj[edges[i][1]].add(edges[i][0]);
         }
         
-        for(int[] edge : edges) {
-            int l = root(edge[0], ids);
-            int r = root(edge[1], ids);
-            if(l == r) {
+        boolean[] visited = new boolean[n];
+        Queue<Integer> queue = new LinkedList<Integer>();
+        queue.offer(0);
+        visited[0] = true;
+        //visited[0] = true;
+        while(!queue.isEmpty()) {
+            int i = queue.poll();
+            if(adj[i] == null) {
+                continue;
+            }
+            Iterator it = adj[i].iterator();
+            while(it.hasNext()) {
+                int num = (Integer)it.next();
+                if(!visited[num]) {
+                    queue.offer(num);
+                    visited[num] = true;
+                    adj[num].remove(i);
+                }
+                else {
+                    return false;
+                }
+                it.remove();
+            }
+        }
+        
+        for(int i = 0; i < n; i++) {
+            if(!visited[i]) {
                 return false;
             }
-            if(sz[l] >= sz[r]) {
-                ids[r] = l;
-                sz[l] += sz[r];
-            }
-            else {
-                ids[l] = r;
-                sz[r] += sz[l];
-            }
         }
+        return true;
         
-        for(int i = 0; i < n; i++) {
-            if(sz[i] == n) {
-                return true;
-            }
-        }
-        
-        return false;
-    }
-    
-    public int root(int i, int[] ids) {
-        while(ids[i] != i) {
-            ids[i] = ids[ids[i]];
-            i = ids[i];
-        }
-        
-        return i;
     }
 }
