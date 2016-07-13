@@ -1,13 +1,11 @@
 public class Solution {
     public int getSum(int a, int b) {
-        int xor = 0;
-        int and = 0;
-        do{
-             xor = a ^ b;
-             and = a & b;
-            a = (and << 1) | xor;
+        while(b != 0) {
+            int xor = a ^ b;
+            int and = a & b;
+            a = xor | (and << 1);
             b = xor & (and << 1);
-        }while(b != 0);
+        }
         
         return a;
     }
