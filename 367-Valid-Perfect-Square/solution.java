@@ -4,9 +4,9 @@ public class Solution {
             return false;
         }
         
-        int left = 1, right = num;
+        int left = 1, right = num / 2 + 1;
         while(left <= right) {
-            int mid = left + (right - left) / 2;
+            long mid = left + (right - left) / 2;
             long tmp = mid * mid;
             if(tmp == num) {
                 return true;
