@@ -1,23 +1,25 @@
 public class Solution {
     public List<int[]> kSmallestPairs(int[] nums1, int[] nums2, int k) {
         List<int[]> res = new ArrayList<int[]>();
-        PriorityQueue<int[]> minheap = new PriorityQueue<int[]>(11, new Comparator<int[]>() {
-            @Override
-            public int compare(int[] p1, int[] p2) {
-                return (p1[0] + p1[1] - p2[0] - p2[1]);
-            }
-        });
+        int[] indexs = new int[nums1.length];
         
-        for(int i = 0; i < nums1.length; i++) {
-            for(int j = 0; j < nums2.length; j++) {
-                minheap.offer(new int[]{nums1[i], nums2[j]});
-            }
-        }
+        k = Math.min(k, nums1.length * nums2.length);
         
-        while(k > 0 && !minheap.isEmpty()) {
-            res.add(minheap.poll());
+        while(k > 0) {
+            int min = Integer.MAX_VALUE;
+            int t = -1;
+            for(int i = 0; i < nums1.length; i++) {
+                if(indexs[i] < nums2.length && nums2[indexs[i]] + nums1[i] < min) {
+                    t = i;
+                    min = nums2[indexs[i]] + nums1[i];
+                }
+            }
+            
+            res.add(new int[]{nums1[t], nums2[indexs[t]]});
+            indexs[t]++;
             k--;
         }
+        
         return res;
     }
 }
