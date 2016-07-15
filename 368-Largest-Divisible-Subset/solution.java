@@ -1,5 +1,8 @@
 public class Solution {
     public List<Integer> largestDivisibleSubset(int[] nums) {
+        if(nums == null || nums.length == 0) {
+            return new ArrayList<Integer>();
+        }
         int[] parents = new int[nums.length];
         int[] len = new int[nums.length];
         
