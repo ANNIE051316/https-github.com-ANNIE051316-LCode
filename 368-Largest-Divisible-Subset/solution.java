@@ -1,34 +1,35 @@
 public class Solution {
     public List<Integer> largestDivisibleSubset(int[] nums) {
-        List<Integer> res = new ArrayList<Integer>();
-        if(nums == null || nums.length == 0) {
-            return res;
-        }
-        int[] dp = new int[nums.length];
-        int[] index = new int[nums.length];
-        for(int i = 0; i < nums.length; i++) {
-            dp[i] = 1;
-            index[i] = -1;
-         }
+        int[] parents = new int[nums.length];
+        int[] len = new int[nums.length];
+        
         Arrays.sort(nums);
-        int maxlen = 0;
-        int maxIndex = 0;
+        int maxindex = 0;
+        int maxlen = 1;
         for(int i = 0; i < nums.length; i++) {
+            if(i == 0) {
+                len[i] = 1;
+                continue;
+            }
+            parents[i] = i;
+            int max = 0;
             for(int j = i - 1; j >= 0; j--) {
-                if(nums[i] % nums[j] == 0 && dp[i] < dp[j] + 1) {
-                    dp[i] = dp[j] + 1;
-                    index[i] = j;
+                if(len[j]  > max && nums[i] % nums[j] == 0) {
+                    parents[i] = j;
+                    max = len[j];
                 }
             }
-            
-            if(maxlen < dp[i]) {
-                maxlen = dp[i];
-                maxIndex = i;
+            len[i] = max + 1;
+            if(len[i] > maxlen) {
+                maxindex = i;
+                maxlen = len[i];
             }
         }
-        
-        for(int i = maxIndex; i != -1; i = index[i]) {
-            res.add(nums[i]);
+        List<Integer> res = new ArrayList<Integer>();
+        while(maxlen > 0) {
+            res.add(0, nums[maxindex]);
+            maxindex = parents[maxindex];
+            maxlen--;
         }
         
         return res;
