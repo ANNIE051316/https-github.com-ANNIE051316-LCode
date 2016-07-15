@@ -3,15 +3,16 @@ public class Solution {
         if(x < y) {
             return canMeasureWater(y, x, z);
         }
-        int gcd = gcd(x, y);
-        if(gcd == 0) {
-            return z== 0;
-        }
         
-        return z % gcd == 0 && (x + y) >= z;
+        int gcd = getgcd(x, y);
+        if(gcd == 0) {
+            return z == 0;
+        }
+        return z % gcd == 0 && x + y >= z;
+        
     }
     
-    public int gcd(int a, int b) {
-        return b == 0 ? a : gcd(b, a % b);
+    public int getgcd(int x, int y) {
+        return (y == 0 ? x : getgcd(y, x % y));
     }
 }
