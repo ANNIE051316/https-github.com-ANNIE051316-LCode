@@ -1,99 +1,108 @@
 public class Twitter {
-    Map<Integer, Set<Integer>> followrelation;
-    Map<Integer, List<Tweet>> tweetrelation;
-    int tweetcount;
+    Map<Integer, User> users;
+    int timestamp;
+    
+    class User{
+        int userId;
+        Set<User> followees;
+        List<Tweet> tweets;
+        User(int userId) {
+            this.userId = userId;
+            followees = new HashSet();
+            tweets = new ArrayList<Tweet>();
+        }
+        
+    }
+    
     class Tweet{
-        int id;
+        int time;
         int tweetId;
-        Tweet(int id, int tweetId) {
-            this.id = id;
+        Tweet(int tweetId) {
+            this.time = timestamp++;
             this.tweetId = tweetId;
         }
     }
-    
+
     /** Initialize your data structure here. */
     public Twitter() {
-        followrelation = new HashMap();
-        tweetrelation = new HashMap();
-        tweetcount = 0;
+        users = new HashMap();
+        timestamp = 0;
     }
     
     /** Compose a new tweet. */
     public void postTweet(int userId, int tweetId) {
-        if(!tweetrelation.containsKey(userId)) {
-            tweetrelation.put(userId, new ArrayList<Tweet>());
+        if(!users.containsKey(userId)) {
+            users.put(userId, new User(userId));
         }
-        tweetrelation.get(userId).add(new Tweet(++tweetcount, tweetId));
+        users.get(userId).tweets.add(new Tweet(tweetId));
     }
     
     /** Retrieve the 10 most recent tweet ids in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user herself. Tweets must be ordered from most recent to least recent. */
     public List<Integer> getNewsFeed(int userId) {
-        PriorityQueue<Tweet> minheap = new PriorityQueue<Tweet>(11, new Comparator<Tweet>(){
-            @Override
-            public int compare(Tweet t1, Tweet t2) {
-                return t1.id - t2.id;
-            }
-            });
-        List<Integer> res = new ArrayList();
-        if(tweetrelation.containsKey(userId)) {
-            constructFeedList(minheap, userId);
+        List<Integer> res = new ArrayList<Integer>();
+        if(!users.containsKey(userId)) {
+            return res;
         }
         
-        if(followrelation.containsKey(userId)) {
-            for(int follower : followrelation.get(userId)) {
-                constructFeedList(minheap, follower);
+        PriorityQueue<Tweet> minheap = new PriorityQueue<Tweet>(11, new Comparator<Tweet>() {
+            @Override
+            public int compare(Tweet t1, Tweet t2) {
+                return t1.time - t2.time;
             }
+        });
+        
+        constructFeedList(minheap, users.get(userId));
+        for(User followee : users.get(userId).followees) {
+            constructFeedList(minheap, followee);
         }
         
         while(!minheap.isEmpty()) {
             res.add(0, minheap.poll().tweetId);
         }
         return res;
-        
     }
     
-    private void constructFeedList(PriorityQueue<Tweet> minheap, int userId) {
-            if(!tweetrelation.containsKey(userId)) {
-                return;
+    private void constructFeedList(PriorityQueue<Tweet> heap, User user) {
+        List<Tweet> candidates = user.tweets;
+        int candisz = candidates.size();
+        for(int i = 0; i < Math.min(10, candisz); i++) {
+            Tweet candidate = candidates.get(candisz - i - 1);
+            int heapsz = heap.size();
+            if(heapsz == 10 && heap.peek().time > candidate.time) {
+                break;
             }
-            int sz = tweetrelation.get(userId).size();
-            
-            for(int i = 0; i < Math.min(10, sz); i++) {
-                Tweet candidate = tweetrelation.get(userId).get(sz - 1 - i);
-                int heapsz = minheap.size(); 
-                
-                if(minheap.size() >= 10 && minheap.peek().id > candidate.id) {
-                    break;
-                }
-                if(heapsz < 10) {
-                    minheap.offer(candidate);
-                }
-                else  {
-                    minheap.poll();
-                    minheap.offer(candidate);
-                }
+            if(heapsz == 10) {
+                heap.poll();
             }
+            heap.offer(candidate);
+        }
     }
+    
     
     /** Follower follows a followee. If the operation is invalid, it should be a no-op. */
     public void follow(int followerId, int followeeId) {
         if(followerId == followeeId) {
             return;
         }
-        if(!followrelation.containsKey(followerId)) {
-            followrelation.put(followerId, new HashSet<Integer>());
+        if(!users.containsKey(followerId)) {
+            users.put(followerId, new User(followerId));
         }
-        followrelation.get(followerId).add(followeeId);
+        if(!users.containsKey(followeeId)) {
+            users.put(followeeId, new User(followeeId));
+        }
+        
+        users.get(followerId).followees.add(users.get(followeeId));
     }
     
     /** Follower unfollows a followee. If the operation is invalid, it should be a no-op. */
     public void unfollow(int followerId, int followeeId) {
-        if(followrelation.containsKey(followerId)) {
-            if(followrelation.get(followerId).contains(followeeId)) {
-                followrelation.get(followerId).remove(followeeId);
-            }
+        if(!users.containsKey(followeeId) || !users.containsKey(followerId)) {
+            return;
         }
         
+        if(users.get(followerId).followees.contains(users.get(followeeId))) {
+            users.get(followerId).followees.remove(users.get(followeeId));
+        }
     }
 }
 
