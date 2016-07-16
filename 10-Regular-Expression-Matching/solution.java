@@ -2,29 +2,21 @@ public class Solution {
     public boolean isMatch(String s, String p) {
         int slen = s.length();
         int plen = p.length();
-        if(plen == 0) {
-            return slen == 0;
-        }
-        
-        if(plen == 1) {
-            return (slen == 1 && (p.charAt(0) == '.' || p.charAt(0) == s.charAt(0)));
-        }
-        
-        if(p.charAt(1) == '*') {
-            if(isMatch(s, p.substring(2))) {
-                return true;
-            }
-            else {
-                if(slen > 0 && (p.charAt(0) == '.' || p.charAt(0) == s.charAt(0))) {
-                    return isMatch(s.substring(1), p);
+        boolean[][] dp = new boolean[slen + 1][plen + 1];
+        dp[0][0] = true;
+        char[] schar = s.toCharArray();
+        char[] pchar = p.toCharArray();
+        for(int i = 0; i <= slen; i++) {
+            for(int j = 1; j <= plen; j++) {
+                if(pchar[j - 1] != '*') {
+                    dp[i][j] = i > 0 && dp[i - 1][j - 1] && (pchar[j - 1] == '.' || pchar[j - 1] == schar[i - 1]);
                 }
                 else {
-                    return false;
+                    dp[i][j] = dp[i][j - 2] || (i > 0 && dp[i - 1][j] && (schar[i - 1] == pchar[j - 2] || pchar[j - 2] == '.'));
                 }
             }
-        }
-        else {
-            return (slen > 0 && (p.charAt(0) == '.' || p.charAt(0) == s.charAt(0)) && isMatch(s.substring(1), p.substring(1)));
-        }
+         }
+         
+         return dp[slen][plen];
     }
 }
