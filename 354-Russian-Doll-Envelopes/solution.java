@@ -15,13 +15,12 @@ public class Solution {
         dp[0] = 1;
         int res = 1;
         for(int i = 1; i < envelopes.length; i++) {
-            int tmpmax = 0;
+            dp[i] = 1;
             for(int j = i - 1; j >= 0; j--) {
                 if(envelopes[j][0] < envelopes[i][0] && envelopes[j][1] < envelopes[i][1]) {
-                    tmpmax = Math.max(tmpmax, dp[j]);
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
                 }
             }
-            dp[i] = 1 + tmpmax;
             res = Math.max(res, dp[i]);
         }
         
