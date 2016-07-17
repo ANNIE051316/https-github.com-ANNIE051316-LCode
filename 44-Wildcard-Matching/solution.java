@@ -18,17 +18,11 @@ public class Solution {
             char c = s.charAt(i - 1);
             for(int j = 1; j <= plen; j++) {
                 int t = p.charAt(j - 1);
-                
-                if(t != '*') {
-                    dp[i][j] = dp[i - 1][j - 1] && (t == '?' || t == c);
+                if(c = '*') {
+                    dp[i][j] = dp[i - 1][j - 1] || dp[i][j - 1] || dp[i - 1][j];
                 }
-                else {
-                    for(int k = i; k >= 0; k--) {
-                        if(dp[k][j - 1]) {
-                            dp[i][j] = true;
-                            break;
-                        }
-                    }
+                else if(t == '?' || t == c) {
+                    dp[i][j] = dp[i - 1][j - 1];
                 }
             }
         }
