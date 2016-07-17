@@ -1,32 +1,37 @@
 public class Solution {
     public boolean isMatch(String s, String p) {
-        int slen = s.length();
-        int plen = p.length();
-        boolean[][] dp = new boolean[slen + 1][plen + 1];
-        dp[0][0] = true;
-        for(int j = 1; j <= plen; j++) {
-            if(p.charAt(j - 1) == '*') {
-                dp[0][j] = true;
+        int index = 0, star = -1, pindex = 0, mark = -1;
+        int slen = s.length(), plen = p.length();
+        
+        while(index < slen) {
+            char c = s.charAt(index);
+            
+            if(pindex < plen && (p.charAt(pindex) == '?' || p.charAt(pindex) == c)) {
+                pindex++;
+                index++;
+            }
+            else if(pindex < plen && p.charAt(pindex) == '*') {
+                star = pindex;
+                mark = index;
+                pindex++;
+            }
+            else if(star != -1) {
+                pindex = star + 1;
+                mark++;
+                index = mark;
             }
             else {
-                break;
+                return false;
             }
         }
         
-        
-        for(int i = 1; i <= slen; i++) {
-            char c = s.charAt(i - 1);
-            for(int j = 1; j <= plen; j++) {
-                int t = p.charAt(j - 1);
-                if(t == '*') {
-                    dp[i][j] = dp[i - 1][j - 1] || dp[i][j - 1] || dp[i - 1][j];
-                }
-                else if(t == '?' || t == c) {
-                    dp[i][j] = dp[i - 1][j - 1];
-                }
+        while(pindex < plen) {
+            if(p.charAt(pindex) != '*') {
+                return false;
             }
+            pindex++;
         }
         
-        return dp[slen][plen];
+        return true;
     }
 }
