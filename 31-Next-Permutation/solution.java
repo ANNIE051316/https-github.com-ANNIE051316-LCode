@@ -1,5 +1,9 @@
 public class Solution {
     public void nextPermutation(int[] nums) {
+        if(nums == null || nums.length <= 1) {
+            return;
+        }
+        
         int index = -1;
         for(int i = nums.length - 1; i > 0; i--) {
             if(nums[i] > nums[i - 1]) {
@@ -7,29 +11,27 @@ public class Solution {
                 break;
             }
         }
-        if(index >= 0) {
-            int i = nums.length - 1;
-            while(i > index) {
+        
+        if(index != -1) {
+            for(int i = nums.length - 1; i > index; i--) {
                 if(nums[i] > nums[index]) {
-                    int tmp = nums[index];
-                    nums[index] = nums[i];
-                    nums[i] = tmp;
+                    swap(nums, i, index);
                     break;
                 }
-                i--;
             }
         }
         
-        swap(nums, index + 1, nums.length - 1);
-    }
-    
-    public void swap(int[] nums, int left, int right) {
+        int left = index + 1, right = nums.length - 1;
         while(left < right) {
-            int tmp = nums[left];
-            nums[left] = nums[right];
-            nums[right] = tmp;
+            swap(nums, left, right);
             left++;
             right--;
         }
+    }
+    
+    public void swap(int[] nums, int i1, int i2) {
+        int tmp = nums[i1];
+        nums[i1] = nums[i2];
+        nums[i2] = tmp;
     }
 }
