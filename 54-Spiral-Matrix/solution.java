@@ -24,7 +24,7 @@ public class Solution {
                 break;
             }
             //bottom
-            for(int i = endy; i >= starty; i++) {
+            for(int i = endy; i >= starty; i--) {
                 res.add(matrix[endx][i]);
             }
             
@@ -33,7 +33,7 @@ public class Solution {
             }
             
             //left
-            for(int i = endx; i >= startx; i++) {
+            for(int i = endx; i >= startx; i--) {
                 res.add(matrix[i][starty]);
             }
             if(++starty > endy) {
