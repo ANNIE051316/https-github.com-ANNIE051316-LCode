@@ -18,7 +18,7 @@ public class Solution {
             char c = s.charAt(i - 1);
             for(int j = 1; j <= plen; j++) {
                 int t = p.charAt(j - 1);
-                if(c = '*') {
+                if(t == '*') {
                     dp[i][j] = dp[i - 1][j - 1] || dp[i][j - 1] || dp[i - 1][j];
                 }
                 else if(t == '?' || t == c) {
