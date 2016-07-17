@@ -3,8 +3,7 @@ public class Solution {
         int[][] matrix = new int[n][n];
         int startx = 0, endx = n - 1, starty = 0, endy = n - 1;
         int cur = 1;
-        int total = n * n;
-        while(cur <= total) {
+        while(true) {
             // top
             for(int i = starty; i <= endy; i++) {
                 matrix[startx][i] = cur;
