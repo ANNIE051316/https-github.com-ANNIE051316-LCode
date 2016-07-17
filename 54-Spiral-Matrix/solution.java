@@ -4,7 +4,7 @@ public class Solution {
         if(matrix == null || matrix.length == 0 || matrix[0].length == 0) {
             return res;
         }
-        int startx = 0, endx = matrix.length, starty = 0, endy = matrix[0].length;
+        int startx = 0, endx = matrix.length - 1, starty = 0, endy = matrix[0].length - 1;
         while(true) {
             // top
             
