@@ -10,22 +10,16 @@
 public class Solution {
     public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<Integer>();
-        Stack<TreeNode> stack = new Stack<TreeNode>();
-        while(root != null) {
-            stack.push(root);
-            root = root.left;
-        }
+        if(root == null) {
+            return res;
+        }             
         
-        while(!stack.isEmpty()) {
-            TreeNode cur = stack.pop();
-            res.add(cur.val);
-            cur = cur.right;
-            while(cur != null) {
-                stack.push(cur);
-                cur = cur.left;
-            }
-        }
-        
+        List<Integer> left = inorderTraversal(root.left);
+        List<Integer> right = inorderTraversal(root.right);
+        res.addAll(left);
+        res.add(root.val);
+        res.addAll(right);
         return res;
+        
     }
 }
