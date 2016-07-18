@@ -14,8 +14,13 @@ public class Solution {
         }
         
         Queue<TreeNode> queue = new LinkedList<TreeNode>();
-        queue.offer(root.left);
-        queue.offer(root.right);
+        if(root.left != null && root.right != null) {
+            queue.offer(root.left);
+            queue.offer(root.right);
+        }
+        else if(root.left != null || root.right != null) {
+            return false;
+        }
         while(!queue.isEmpty()) {
             TreeNode node1 = queue.poll();
             TreeNode node2 = queue.poll();
