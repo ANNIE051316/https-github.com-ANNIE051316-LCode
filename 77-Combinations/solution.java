@@ -11,6 +11,10 @@ public class Solution {
             return;
         }
         
+        if(start > end || end - start + 1 < numneeded) {
+            return;
+        }
+        
         for(int i = start; i <= end; i++) {
             path.add(i);
             combinehelper(i + 1, end, path, numneeded - 1, res);
