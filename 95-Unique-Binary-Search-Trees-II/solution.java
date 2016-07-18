@@ -9,13 +9,16 @@
  */
 public class Solution {
     public List<TreeNode> generateTrees(int n) {
-        List<TreeNode> res = helper(1, n);
-        return res;
+        if(n <= 0) {
+            return new ArrayList<TreeNode>();
+        }
+       return helper(1, n);
     }
     
     public List<TreeNode> helper(int start, int end) {
         List<TreeNode> res = new ArrayList<TreeNode>();
         if(start > end) {
+            res.add(null);
             return res;
         }
         
@@ -27,21 +30,7 @@ public class Solution {
         for(int i = start; i <= end; i++) {
             List<TreeNode> left = helper(start, i - 1);
             List<TreeNode> right = helper(i + 1, end);
-            if(left.size() == 0) {
-                for(TreeNode r : right) {
-                     TreeNode root = new TreeNode(i);
-                     root.right = r;
-                     res.add(root);
-                }
-            }
-            else if(right.size() == 0) {
-                for(TreeNode l : left) {
-                    TreeNode root = new TreeNode(i);
-                    root.left = l;
-                    res.add(root);
-                }
-            }
-            else {
+          
                 for(TreeNode l : left) {
                     for(TreeNode r : right) {
                         TreeNode root = new TreeNode(i);
@@ -50,7 +39,6 @@ public class Solution {
                         res.add(root);
                     }
                 }
-            }
         }
         
         return res;
