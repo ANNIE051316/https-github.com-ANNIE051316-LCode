@@ -8,9 +8,9 @@
  */
 public class Solution {
     public void connect(TreeLinkNode root) {
-        ListNode cur = root;
-        ListNode nextstart = null;
-        ListNode prev = null;
+        TreeLinkNode cur = root;
+        TreeLinkNode nextstart = null;
+        TreeLinkNode prev = null;
         while(cur != null) {
             if(cur.left == null) {
                 return;
@@ -18,8 +18,10 @@ public class Solution {
             cur.left.next = cur.right;
             if(prev != null) {
                 prev.next = cur.left;
-                prev = cur.right;
             }
+            
+            prev = cur.right;
+            
             if(nextstart == null) {
                 nextstart = cur.left;
             } 
