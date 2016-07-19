@@ -8,48 +8,29 @@
  */
 public class Solution {
     public void connect(TreeLinkNode root) {
-        if(root == null) {
-            return;
-        }
-        
-        TreeLinkNode  start = root;
-        TreeLinkNode prev = null;
-        TreeLinkNode nextStart = null;
-        while(start != null) {
-            if(start.left != null) {
-                if(prev != null) {
-                    prev.next = start.left;
-                    prev = prev.next;
-                }
-                else {
-                    prev = start.left;
-                }
-                
-                if(nextStart == null) {
-                    nextStart = start.left;
-                }
+        ListNode cur = root;
+        ListNode nextstart = null;
+        ListNode prev = null;
+        while(cur != null) {
+            if(cur.left == null) {
+                return;
             }
-            
-            if(start.right != null) {
-                if(prev != null) {
-                    prev.next = start.right;
-                    prev = prev.next;
-                }
-                else {
-                    prev = start.right;
-                }
-                
-                if(nextStart == null) {
-                    nextStart = start.right;
-                }
+            cur.left.next = cur.right;
+            if(prev != null) {
+                prev.next = cur.left;
+                prev = cur.right;
             }
+            if(nextstart == null) {
+                nextstart = cur.left;
+            } 
             
-            start = start.next;
-            if(start == null) {
-                start = nextStart;
+            cur = cur.next;
+            if(cur == null) {
+                cur = nextstart;
+                nextstart = null;
                 prev = null;
             }
+            
         }
-        
     }
 }
