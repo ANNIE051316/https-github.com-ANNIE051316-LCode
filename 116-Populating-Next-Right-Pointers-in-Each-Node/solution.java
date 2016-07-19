@@ -47,6 +47,7 @@ public class Solution {
             start = start.next;
             if(start == null) {
                 start = nextStart;
+                prev = null;
             }
         }
         
