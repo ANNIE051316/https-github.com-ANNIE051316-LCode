@@ -10,7 +10,7 @@ public class Solution {
             }
             
             while(cursum - nums[start] >= s) {
-                start++;
+                cursum -= nums[start++];
             }
             res = Math.min(res, i - start + 1);
         }
