@@ -23,7 +23,7 @@ public class Solution {
             pa = headB;
             pb = pb.next;
         }
-        if(pb == null) {
+        else if(pb == null) {
             pb = headA;
             pa = pa.next;
         }
@@ -40,7 +40,7 @@ public class Solution {
             pa = headB;
             pb = pb.next;
         }
-        if(pb == null) {
+        else if(pb == null) {
             pb = headA;
             pa = pa.next;
         }
