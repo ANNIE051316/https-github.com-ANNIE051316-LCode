@@ -29,7 +29,7 @@ public class WordDictionary {
     // contain the dot character '.' to represent any one letter.
     public boolean search(String word) {
         int len = word.length();
-       return searchhelper(word, 0, len, head);
+       return searchhelper(word, 0, len - 1, head);
     }
     
     private boolean searchhelper(String word, int start, int end, Trie cur) {
