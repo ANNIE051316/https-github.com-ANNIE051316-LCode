@@ -20,14 +20,11 @@ public class Solution {
     private int binarysearch(int target, int left, int right, int[] sum) {
         while(left <= right) {
             int mid = left + (right - left) / 2;
-            if(sum[mid] == target) {
-                return mid;
-            }
-            else if(sum[mid] < target) {
-                left = mid + 1;
+            if(sum[mid] > target) {
+                right = mid - 1;
             }
             else {
-                right = mid - 1;
+                left = mid + 1;
             }
         }
         return right;
