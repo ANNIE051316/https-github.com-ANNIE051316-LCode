@@ -8,7 +8,7 @@
  */
 public class Solution {
     public ListNode sortList(ListNode head) {
-        if(head == null) {
+        if(head == null || head.next == null) {
             return head;
         }
         ListNode dummy = new ListNode(0);
@@ -20,9 +20,6 @@ public class Solution {
         ListNode l2 = p1.next;
         p1.next = null;
         
-        if(l2 == null) {
-            return head;
-        }
         ListNode l1 = sortList(head);
         l2 = sortList(l2);
         
