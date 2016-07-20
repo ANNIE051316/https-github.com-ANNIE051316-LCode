@@ -37,7 +37,7 @@ public class WordDictionary {
             return false;
         }
         if(start > end) {
-            return cur.isLeaf; 
+            return cur.isleaf; 
         }
         char c = word.charAt(start);
         if(c == '.') {
