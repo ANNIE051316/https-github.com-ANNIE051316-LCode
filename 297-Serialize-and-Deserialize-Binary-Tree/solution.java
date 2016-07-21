@@ -56,7 +56,7 @@ public class Codec {
         Queue<TreeNode> queue = new LinkedList<TreeNode>();
         queue.offer(root);
         
-        while(!queue.isEmpty()) {
+        while(index < nodes.length - 1 && !queue.isEmpty()) {
             TreeNode tmp = queue.poll();
             if(!nodes[++index].equals("#")) {
                 tmp.left = new TreeNode(Integer.parseInt(nodes[index]));
