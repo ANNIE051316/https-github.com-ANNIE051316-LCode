@@ -26,6 +26,6 @@ class MyStack {
 
     // Return whether the stack is empty.
     public boolean empty() {
-        return queue.isEmpty();
+        return queue == null || queue.isEmpty();
     }
 }
