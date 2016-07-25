@@ -9,7 +9,8 @@ public class Solution {
         while(left <= right) {
             int mid = left + (right - left) / 2;
             if(citations[mid] == citations.length - mid) {
-                return mid;
+                return citations.length - mid;
+            }
             else if(citations[mid] < citations.length - mid) {
                 left = mid + 1;
             }
