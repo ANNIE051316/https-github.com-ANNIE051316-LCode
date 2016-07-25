@@ -13,7 +13,7 @@ public class Solution {
             }
             else {
                 int tmp = Integer.MAX_VALUE;
-                for(int j = n / 2; j > 0; j--) {
+                for(int j = i / 2; j > 0; j--) {
                     tmp = Math.min(tmp, dp[j - 1] + dp[i - j - 1]);
                 }
                 dp[i - 1] = tmp;
