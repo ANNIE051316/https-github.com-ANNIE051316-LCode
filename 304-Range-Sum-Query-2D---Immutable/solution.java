@@ -16,7 +16,7 @@ public class NumMatrix {
     public int sumRegion(int row1, int col1, int row2, int col2) {
         int sum = 0;
         for(int j = col1; j <= col2; j++) {
-            sum += matrix[row2][j] - (row1 > 0 ? matrix[row1 - 1, j] : 0);
+            sum += matrix[row2][j] - (row1 > 0 ? matrix[row1 - 1][j] : 0);
         }
         
         return sum;
