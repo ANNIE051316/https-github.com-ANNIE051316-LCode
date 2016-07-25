@@ -6,7 +6,7 @@ public class NumMatrix {
         }
         this.matrix = matrix;
         for(int i = 1; i < matrix.length; i++) {
-            for(j = 0; j < matrix[0].length; j++) {
+            for(int j = 0; j < matrix[0].length; j++) {
                 matrix[i][j] += matrix[i - 1][j];
             }
         }
