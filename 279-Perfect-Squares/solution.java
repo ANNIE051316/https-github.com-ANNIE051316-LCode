@@ -13,8 +13,8 @@ public class Solution {
             }
             else {
                 int tmp = Integer.MAX_VALUE;
-                for(int j = i / 2; j > 0; j--) {
-                    tmp = Math.min(tmp, dp[j - 1] + dp[i - j - 1]);
+                for(int j = cur - 1; j > 0; j--) {
+                    tmp = Math.min(tmp, 1 + dp[i - j * j - 1]);
                 }
                 dp[i - 1] = tmp;
             }
