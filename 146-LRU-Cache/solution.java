@@ -20,7 +20,7 @@ public class LRUCache {
     
     public int get(int key) {
         DNode curnode = map.get(key);
-        if(DNode == null) {
+        if(curnode == null) {
             return -1;
         }
         remove(curnode);
