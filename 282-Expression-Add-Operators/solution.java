@@ -5,7 +5,7 @@ public class Solution {
         return res;
     }
     
-    public void helper(String s, int start, int cursum, int prev, int target, StringBuilder path, List<String> res) {
+    public void helper(String s, int start, long cursum, long prev, int target, StringBuilder path, List<String> res) {
         if(start == s.length()) {
             if(cursum == target) {
                 res.add(path.toString());
@@ -18,7 +18,7 @@ public class Solution {
             if(sub.startsWith("0") && sub.length() > 1) {
                 break;
             }
-            int tmp = Integer.parseInt(sub);
+            long tmp = Long.parseLong(sub);
             if(path.length() != 0) {
                 path.append("+" + sub);
                 helper(s, i, cursum + tmp, tmp, target, path, res);
