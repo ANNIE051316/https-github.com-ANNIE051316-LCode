@@ -6,31 +6,19 @@ public class Solution {
         
         int[] count = new int[26];
         for(int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            count[c - 'a']++;
+            count[s.charAt(i) - 'a']++;
         }
         
-        boolean[] used = new boolean[26];
-        Stack<Character> stack = new Stack<Character>();
-        StringBuilder sb = new StringBuilder();
+        int pos = 0;
         for(int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            count[c - 'a']--;
-            if(used[c - 'a']) {
-                continue;
+            if(s.charAt(pos) > s.charAt(i)) {
+                pos = i;
             }
-            while(!stack.isEmpty() && stack.peek() > c && count[stack.peek() - 'a'] > 0) {
-                char top = stack.pop();
-                used[top - 'a'] = false;
+            if(--count[s.charAt(i) - 'a'] == 0) {
+                break;
             }
-        
-            stack.push(c);
-            used[c - 'a'] = true;
         }
         
-        while(!stack.isEmpty()) {
-            sb.insert(0, stack.pop());
-        }
-        return sb.toString();
+        return s.charAt(pos) + removeDuplicateLetters(s.substring(pos + 1).replace("" + s.charAt(pos), ""));
     }
 }
