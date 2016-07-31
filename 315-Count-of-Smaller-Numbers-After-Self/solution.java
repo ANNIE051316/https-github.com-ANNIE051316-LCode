@@ -1,37 +1,53 @@
 public class Solution {
+    class Pair{
+        int index;
+        int val;
+        Pair(int index, int val) {
+            this.index = index;
+            this.val = val;
+        }
+    }
+    
+    
     public List<Integer> countSmaller(int[] nums) {
-        List<Integer> res = new ArrayList();
-        
-        int[] tmp = Arrays.copyOf(nums, nums.length);
-        Arrays.sort(tmp);
+        List<Integer> res = new ArrayList<Integer>();
+        if(nums == null || nums.length == 0) {
+            return res;
+        }
+        Integer[] counts = new Integer[nums.length];
+        List<Pair> pairs = new ArrayList();
         for(int i = 0; i < nums.length; i++) {
-            nums[i] = Arrays.binarySearch(tmp, nums[i]) + 1;
+            pairs.add(new Pair(i, nums[i]));
+            counts[i] = 0;
         }
         
-        int[] bit = new int[nums.length];
+        mergeSort(pairs, counts);
         
-        for(int i = nums.length - 1; i >= 0; i--) {
-            int count = getSum(bit, nums[i] - 1);
-            res.add(0, count);
-            update(bit, nums[i]);
-        }
+        res.addAll(Arrays.asList(counts));
         return res;
     }
     
-    public int getSum(int[] bit, int i) {
-        int res = 0;
+    public List<Pair> mergeSort(List<Pair> pairs, Integer[] counts) {
+        if(pairs.size() <= 1) {
+            return pairs;
+        }
+        int mid = pairs.size() / 2;
         
-        while(i > 0) {
-            res += bit[i - 1];
-            i = i - (i & (-i));
+        List<Pair> left = mergeSort(pairs.subList(0, mid), counts);
+        List<Pair> right = mergeSort(pairs.subList(mid, pairs.size()), counts);
+        List<Pair> merged = new ArrayList<Pair>();
+        for(int i = 0, j = 0; i < left.size() || j < right.size();) {
+            if(j == right.size() || (i < left.size() && left.get(i).val <= right.get(j).val)) {
+                counts[left.get(i).index] += j;
+                merged.add(left.get(i));
+                i++;
+            }
+            else {
+                merged.add(right.get(j));
+                j++;
+            }
         }
-        return res;
-    }
-    
-    public void update(int[] bit, int i) {
-        while(i <= bit.length) {
-            bit[i - 1]++;
-            i = i + (i & (-i));
-        }
+        
+        return merged;
     }
 }
