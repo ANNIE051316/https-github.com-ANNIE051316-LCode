@@ -15,7 +15,10 @@ public class Solution {
             while(prev > 0 && sb.charAt(prev) != cur) {
                 prev = dp[prev - 1];
             }
-            dp[i] = prev + 1;
+            if(s.charAt(prev) == cur) {
+                prev++;
+            }
+            dp[i] = prev;
         }
         
         return (new StringBuilder(s.substring(dp[dp.length - 1]))).reverse() + s;
