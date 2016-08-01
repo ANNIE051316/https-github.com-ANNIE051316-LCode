@@ -6,14 +6,8 @@ public class Solution {
             int[] n1 = maxArray(nums1, i);
             int[] n2 = maxArray(nums2, k - i);
             int[] tmp = merge(n1, n2);
-            for(int j = 0; j < k; j++) {
-                if(tmp[j] > res[j]) {
-                    res = tmp;
-                    break;
-                }
-                else if(tmp[j] < res[j]) {
-                    break;
-                }
+            if(greater(tmp, 0, res, 0)) {
+                res = tmp;
             }
         }
         
@@ -53,18 +47,11 @@ public class Solution {
     
     
     public boolean greater(int[] num1, int i1, int[] num2, int i2) {
-        while(i1 < num1.length && i2 < num2.length) {
-            if(num1[i1] > num2[i2]) {
-                return true;
-            }
-            else if(num1[i1] < num2[i2]) {
-                return false;
-            }
+        while(i1 < num1.length && i2 < num2.length && num1[i1] == num2[i2]) {
             i1++;
             i2++;
         }
-        
-        return i1 == num1.length ? false : true;
+        return i2 == num2.length || (i1 < num1.length && num1[i1] > num2[i2]);
     }
     
     
