@@ -36,9 +36,14 @@ public class Solution {
             }
             Map<Double, Integer> map = new HashMap();
             int same = 1; 
+            int samex = 0;
             for(int j = i + 1; j < points.length; j++) {
                 if(points[i].x == points[j].x && points[i].y == points[j].y) {
                     same++;
+                    continue;
+                }
+                if(point[i].x == point[j].x) {
+                    samex++;
                     continue;
                 }
                 double slope = ((double)(points[i].y - points[j].y)) / (points[i].x - points[j].x);
@@ -49,6 +54,7 @@ public class Solution {
             for(int value : map.values()) {
                 tmpmax = Math.max(tmpmax, value);
             }
+            tmpmax = Math.max(tmpmax, samex);
             tmpmax += same;
             res = Math.max(res, tmpmax);
         }
