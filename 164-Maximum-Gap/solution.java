@@ -18,7 +18,7 @@ public class Solution {
         Arrays.fill(maxs, Integer.MIN_VALUE);
         
         for(int num : nums) {
-            int index = (num - min) / gap - 1;
+            int index = (num - min) / gap;
             maxs[index] = Math.max(maxs[index], num);
             mins[index] = Math.min(mins[index], num);
         }
