@@ -10,7 +10,9 @@ public class Solution {
         
         int[] dp = new int[amount + 1];
         for(int coin : coins) {
-            dp[coin] = 1;
+            if(coin <= amount) {
+                dp[coin] = 1;
+            }
         }
         
         for(int i = 1; i <= amount; i++) {
