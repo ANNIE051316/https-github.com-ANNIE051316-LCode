@@ -42,7 +42,7 @@ public class WordDictionary {
     }
     
     public boolean searchHelper(String word, TrieNode curNode, int index) {
-        for(int i = index; i < word.length; i++) {
+        for(int i = index; i < word.length(); i++) {
             char c = s.charAt(i);
             if(c == '.') {
                 for(TrieNode node : curNode.children) {
@@ -53,6 +53,7 @@ public class WordDictionary {
                         return true;
                     }
                 }
+                return false;
             }
             else {
                 if(curNode.children[c - 'a'] == null) {
