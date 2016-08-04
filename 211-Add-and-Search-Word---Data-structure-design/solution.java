@@ -42,6 +42,9 @@ public class WordDictionary {
     }
     
     public boolean searchHelper(String word, TrieNode curNode, int index) {
+        if(index == word.length()) {
+            return curNode.isWord;
+        }
        
             char c = word.charAt(index);
             if(c == '.') {
