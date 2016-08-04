@@ -30,15 +30,9 @@ public class Solution {
                     right--;
                 }
                 else if(sum > 0) {
-                    while(left < right && nums[right - 1] == nums[right]) {
-                        right--;
-                    }
                     right--;
                 }
                 else {
-                    while(left < right && nums[left] == nums[left + 1]) {
-                        left++;
-                    }
                     left++;
                 }
             }
