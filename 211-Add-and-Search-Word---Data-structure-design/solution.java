@@ -21,7 +21,7 @@ public class WordDictionary {
             return;
         }
         
-        for(int i = 0; i < len; i++) {
+        for(int i = 0; i < word.length(); i++) {
             char cur = word.charAt(i);
             if(root.children[cur - 'a'] == null) {
                 root.children[cur - 'a'] = new TrieNode();
