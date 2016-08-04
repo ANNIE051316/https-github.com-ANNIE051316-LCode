@@ -16,7 +16,7 @@ public class WordDictionary {
     
     // Adds a word into the data structure.
     public void addWord(String word) {
-        TreeNode root =  head;
+        TrieNode root =  head;
         if(word == null || word.length() == 0) {
             return;
         }
