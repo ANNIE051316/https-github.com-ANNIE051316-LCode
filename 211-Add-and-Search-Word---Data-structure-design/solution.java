@@ -42,14 +42,14 @@ public class WordDictionary {
     }
     
     public boolean searchHelper(String word, TrieNode curNode, int index) {
-        for(int i = index; i < word.length(); i++) {
+       
             char c = word.charAt(i);
             if(c == '.') {
                 for(TrieNode node : curNode.children) {
                     if(node == null) {
                         continue;
                     }
-                    if(searchHeler(word, node, index + 1)) {
+                    if(searchHelper(word, node, index + 1)) {
                         return true;
                     }
                 }
@@ -60,9 +60,8 @@ public class WordDictionary {
                     return false;
                 }
                 curNode = curNode.children[c  - 'a'];
+                return searchHelper(word, curNode, index + 1);
             }
-        }
-        return curNode.isWord;
     }
 }
 
