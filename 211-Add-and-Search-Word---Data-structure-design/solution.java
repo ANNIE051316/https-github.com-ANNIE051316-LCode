@@ -43,7 +43,7 @@ public class WordDictionary {
     
     public boolean searchHelper(String word, TrieNode curNode, int index) {
         for(int i = index; i < word.length(); i++) {
-            char c = s.charAt(i);
+            char c = word.charAt(i);
             if(c == '.') {
                 for(TrieNode node : curNode.children) {
                     if(node == null) {
