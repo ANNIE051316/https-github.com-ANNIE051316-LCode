@@ -10,8 +10,7 @@ public class Solution {
         int count = 1;
         Queue<String> queue = new LinkedList();
         queue.offer(beginWord);
-        Set<String> visited = new HashSet<String>();
-        visited.add(beginWord);
+        wordList.remove(beginWord);
         while(!queue.isEmpty()) {
             int sz = queue.size();
             for(int i = 0; i < sz; i++) {
@@ -26,9 +25,9 @@ public class Solution {
                             if(curstring.equals(endWord)) {
                                 return count + 1;
                             }
-                            if(wordList.contains(curstring) && !visited.contains(curstring)) {
+                            if(wordList.contains(curstring)) {
                                 queue.offer(curstring);
-                                visited.add(curstring);
+                                wordList.remove(curstring);
                             }
                         }
                     }
