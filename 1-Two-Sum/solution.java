@@ -12,7 +12,7 @@ public class Solution {
             }
         }
         
-        throw new IllegalArugmentException("No such pair of number have a sum equal to " + target);
+        throw new IllegalArgumentException("No such pair of number have a sum equal to " + target);
         
         
     }
