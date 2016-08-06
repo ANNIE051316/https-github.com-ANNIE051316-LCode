@@ -1,21 +1,20 @@
 public class Solution {
     public int mySqrt(int x) {
-        if(x <= 0) {
-            return 0;
+        if(x < 0) {
+            throw new IllegalArgumentException("input x is smaller than 0");
         }
         
-        int left = 1, right = (x >> 1) + 1;
-        
+        int left = 0, right = x / 2 + 1;
         while(left <= right) {
-            int mid = left + (right - left) / 2;
-            long mul = (long)mid * (long)mid;
-            if(mul == x) {
+            int mid = left  + (right - left) / 2;
+            long cur = (long)mid * (long)mid;
+            if(cur == x) {
                 return mid;
             }
-            else if(mul > x) {
+            else if(cur > x) {
                 right = mid - 1;
             }
-            else {
+            else{
                 left = mid + 1;
             }
         }
