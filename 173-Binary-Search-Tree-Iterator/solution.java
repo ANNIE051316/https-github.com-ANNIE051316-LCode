@@ -9,31 +9,42 @@
  */
 
 public class BSTIterator {
-    Stack<TreeNode> stack;
+    TreeNode cur;
 
     public BSTIterator(TreeNode root) {
-        stack = new Stack();
-        while(root != null) {
-            stack.push(root);
-            root = root.left;
-        }
+        cur = root;
     }
 
     /** @return whether we have a next smallest number */
     public boolean hasNext() {
-        return !stack.isEmpty();
+        return cur != null;
     }
 
     /** @return the next smallest number */
     public int next() {
-        
-        TreeNode smallest = stack.pop();
-        int res = smallest.val;
-        smallest = smallest.right;
-        while(smallest != null) {
-            stack.push(smallest);
-            smallest = smallest.left;
+        int res;
+        if(cur.left == null) {
+            res = cur.val;
+            cur = cur.right;
         }
+        else {
+            TreeNode prev = cur.left;
+            while(prev.right != null && prev.right != cur) {
+                prev = prev.right;
+            }
+            
+            if(prev.right == cur) {
+                prev.right = null;
+                res = cur.val;
+                cur = cur.right;
+            }
+            else {
+                prev.right = cur;
+                cur = cur.left;
+                return next();
+            }
+        }
+        
         return res;
     }
 }
