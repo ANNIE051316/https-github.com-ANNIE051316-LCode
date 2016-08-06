@@ -3,34 +3,27 @@ public class Solution {
         if(s == null || s.length() == 0) {
             return true;
         }
+        
         if(wordDict == null || wordDict.size() == 0) {
             return false;
         }
-        
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
         Set<Integer> lenset = new HashSet();
+
         for(String word : wordDict) {
             lenset.add(word.length());
         }
         
-        return helper(s, 0, wordDict, lenset);
-    }
-    
-    public boolean helper(String s, int start, Set<String> wordDict, Set<Integer> lenset) {
-        if(start == s.length()) {
-            return true;
-        }
-        
-        for(int len : lenset) {
-            if(len + start > s.length()) {
-                continue;
-            }
-            String sub = s.substring(start, start + len);
-            if(wordDict.contains(sub) && helper(s, start + len, wordDict, lenset)) {
-                return true;
+        for(int i = 1; i < dp.length; i++) {
+            for(int len : lenset) {
+                if(i - len >= 0 && dp[i - len] && wordDict.contains(s.substring(i - len, i))) {
+                    dp[i] = true;
+                    break;
+                }
             }
         }
         
-        return false;
+        return dp[dp.length - 1];
     }
-    
 }
