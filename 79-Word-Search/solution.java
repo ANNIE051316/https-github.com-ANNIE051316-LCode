@@ -29,7 +29,7 @@ public class Solution {
         if(board[row][col] != c) {
             return false;
         }
-        if(index + 1 == worod.length()) {
+        if(index + 1 == word.length()) {
             return true;
         }
         
