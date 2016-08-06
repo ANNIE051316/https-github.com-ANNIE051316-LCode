@@ -22,7 +22,7 @@ public class BSTIterator {
 
     /** @return the next smallest number */
     public int next() {
-        int res;
+        int res = 0;
         while(cur != null) {
             if(cur.left == null) {
                 res = cur.val;
