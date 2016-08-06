@@ -30,12 +30,6 @@ isMatch("aab", "c*a*b") → false
 
 <div>
 
-<div id="company_tags" class="btn btn-xs btn-warning">Show Company Tags</div>
-
-<span class="hidebutton">[Facebook](/company/facebook/) [Google](/company/google/) [Snapchat](/company/snapchat/)</span></div>
-
-<div>
-
 <div id="tags" class="btn btn-xs btn-warning">Show Tags</div>
 
 <span class="hidebutton">[Dynamic Programming](/tag/dynamic-programming/) [Backtracking](/tag/backtracking/) [Greedy](/tag/greedy/) [String](/tag/string/)</span></div>
