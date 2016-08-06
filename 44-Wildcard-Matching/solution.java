@@ -38,12 +38,7 @@ public class Solution {
                     dp[i][j] = dp[i - 1][j - 1] && ( c == '?' || c == t);
                 }
                 else {
-                    for(int k = j; k >= 0; k--) {
-                        if(dp[i - 1][k]) {
-                            dp[i][j] = true;
-                            break;
-                        }
-                    }
+                    dp[i][j] = dp[i - 1][j - 1] || dp[i - 1][j] || dp[i][j - 1];
                 }
             }
         }
