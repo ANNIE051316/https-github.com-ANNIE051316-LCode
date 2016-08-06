@@ -1,37 +1,53 @@
 public class Solution {
     public boolean isMatch(String s, String p) {
-        int index = 0, star = -1, pindex = 0, mark = -1;
-        int slen = s.length(), plen = p.length();
-        
-        while(index < slen) {
-            char c = s.charAt(index);
-            
-            if(pindex < plen && (p.charAt(pindex) == '?' || p.charAt(pindex) == c)) {
-                pindex++;
-                index++;
-            }
-            else if(pindex < plen && p.charAt(pindex) == '*') {
-                star = pindex;
-                mark = index;
-                pindex++;
-            }
-            else if(star != -1) {
-                pindex = star + 1;
-                mark++;
-                index = mark;
+        if(s == null || s.length() == 0) {
+            if(p == null || p.length() == 0) {
+                return true;
             }
             else {
-                return false;
+                for(int i = 0; i < p.length(); i++) {
+                    if(p.charAt(i) != '*') {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        
+        if(p == null || p.length() == 0) {
+            return false;
+        }
+        
+        boolean[][] dp = new boolean[p.length() + 1][s.length() + 1];
+        
+        dp[0][0] = true;
+        for(int i = 0; i < p.length(); i++) {
+            if(p.charAt(i) == '*') {
+                dp[i + 1][0] = true; 
+            }
+            else {
+                break;
             }
         }
         
-        while(pindex < plen) {
-            if(p.charAt(pindex) != '*') {
-                return false;
+        for(int i = 1; i < p.length() + 1; i++) {
+            char c = p.charAt(i - 1);
+            for(int j = 1; j < s.length() + 1; j++){
+                char t = s.charAt(j - 1);
+                if(c != '*') {
+                    dp[i][j] = dp[i - 1][j - 1] && ( c == '?' || c == t);
+                }
+                else {
+                    for(int k = j; k >= 0; k--) {
+                        if(dp[i - 1][k]) {
+                            dp[i][j] = true;
+                            break;
+                        }
+                    }
+                }
             }
-            pindex++;
         }
         
-        return true;
+        return dp[dp.length - 1][dp[0].length - 1];
     }
 }
