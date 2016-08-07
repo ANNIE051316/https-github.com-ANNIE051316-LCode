@@ -64,10 +64,13 @@ public class Codec {
                 queue.offer(left);
             }
             
-            if(index < strs.length && !strs[index].equals("#")) {
-                TreeNode right = new TreeNode(Integer.parseInt(strs[index++]));
-                cur.right = right;
-                queue.offer(right);
+            if(index < strs.length) {
+                s1 = strs[index++];
+                if(!s1.equals("#")) {
+                    TreeNode right = new TreeNode(Integer.parseInt(s1));
+                    cur.right = right;
+                    queue.offer(right);
+                }
             }
         }
         return root;
