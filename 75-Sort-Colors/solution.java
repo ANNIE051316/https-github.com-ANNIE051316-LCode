@@ -19,7 +19,7 @@ public class Solution {
                 }
                 end0 += 1;
             }
-            else if(nums[i] == 2) {
+            else if(nums[i] == 2 && i != start2 - 1) {
                 nums[i] = nums[start2 - 1];
                 nums[start2 - 1] = 2;
                 while(start2 - 1 >= 0 && nums[start2 - 2] == 2) {
