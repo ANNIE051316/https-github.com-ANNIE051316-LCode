@@ -23,7 +23,9 @@ public class Solution {
         });
         
         for(ListNode list : lists) {
-            pq.offer(list);
+            if(list != null) {
+                pq.offer(list);
+            }
         }
         
         ListNode prev = dummy;
