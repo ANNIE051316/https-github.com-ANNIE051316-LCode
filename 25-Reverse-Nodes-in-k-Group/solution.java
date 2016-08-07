@@ -15,7 +15,7 @@ public class Solution {
         ListNode prev = dummy;
         prev.next = head;
         ListNode p1 = head, p2 = head;
-        while(p2.next != null) {
+        while(p2 != null) {
             int count = 0;
             while(p2 != null && count < k) {
                 p2 = p2.next;
