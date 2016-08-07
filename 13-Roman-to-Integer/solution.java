@@ -19,32 +19,32 @@ public class Solution {
         if(s.indexOf("CD") != -1) {
             res -= 200;
         }
-        if(s.indexOf("CM") != 1) {
+        if(s.indexOf("CM") != -1) {
             res -= 200;
         }
         
         for(int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             switch (c) {
-                case "I":
+                case 'I':
                     res += 1;
                     break;
-                case "V":
+                case 'V':
                     res += 5;
                     break;
-                case "X":
+                case 'X':
                     res += 10;
                     break;
-                case "L":
+                case 'L':
                     res += 50;
                     break;
-                case "C":
+                case 'C':
                     res += 100;
                     break;
-                case "D":
+                case 'D':
                     res += 500;
                     break;
-                case "M":
+                case 'M':
                     res += 1000;
                     break;
                 default:
