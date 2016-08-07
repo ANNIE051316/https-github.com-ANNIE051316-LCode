@@ -1,32 +1,26 @@
 public class Solution {
     public int minSubArrayLen(int s, int[] nums) {
-        int[] sum = new int[nums.length + 1];
-        for(int i = 0; i < nums.length; i++) {
-            sum[i + 1] = sum[i] + nums[i];
-        }
-        int res = Integer.MAX_VALUE;
-        for(int i = 1; i <= nums.length; i++) {
-            if(sum[i] < s) {
-                continue;
-            }
-            
-            int index = binarysearch(sum[i] - s, 0, i - 1, sum);
-            res = Math.min(res, i - index);
+        if(nums == null || nums.length == 0) {
+            return 0;
         }
         
-        return res == Integer.MAX_VALUE ? 0 : res;
-    }
-    
-    private int binarysearch(int target, int left, int right, int[] sum) {
-        while(left <= right) {
-            int mid = left + (right - left) / 2;
-            if(sum[mid] > target) {
-                right = mid - 1;
-            }
-            else {
-                left = mid + 1;
+        int start = -1, end = -1;
+        
+        int cursum = 0, tmpstart = 0;
+        for(int i = 0; i < nums.length; i++) {
+            cursum += nums[i];
+            if(cursum >= s) {
+                while(cursum - nums[tmpstart] >= s) {
+                    cursum -= nums[tmpstart++];
+                }
+                
+                if(start == -1 || end - start > i - tmpstart) {
+                    start = tmpstart;
+                    end = i;
+                }
             }
         }
-        return right;
+        
+        return start == -1 ? 0 : end - start + 1;
     }
 }
