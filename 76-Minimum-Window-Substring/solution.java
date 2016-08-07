@@ -18,24 +18,26 @@ public class Solution {
             }
             int needed = map.get(c);
             map.put(c, needed - 1);
-            if(needed == 1) {
+            if(needed > 0) {
                 covered++;
-                if(covered == t.length()) {
+            }
+            
+            if(covered == t.length()) {
                     
                     char tmp = s.charAt(start);
                     while(!map.containsKey(tmp) || map.get(tmp) < 0) {
-                        start++;
                         if(map.containsKey(tmp)) {
                             map.put(tmp, map.get(tmp) + 1);
                         }
+                        tmp = s.charAt(++start);
                     }
                     
                     if(startmin == - 1 || i - start < endmin - startmin) {
                         startmin = start;
                         endmin = i;
                     }
-                }
             }
+            
         }
         
         return startmin == -1 ? "" : s.substring(startmin, endmin + 1);
