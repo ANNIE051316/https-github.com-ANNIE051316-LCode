@@ -4,7 +4,7 @@ public class Solution {
             return "/";
         }
         
-        String[] strs = path.split("\\/");
+        String[] strs = path.split("/");
         Stack<String> stack = new Stack();
         for(String s : strs) {
             s = s.trim();
