@@ -3,25 +3,32 @@ public class Solution {
         if(nums == null || nums.length == 0) {
             return;
         }
-        
-        int count0 = 0, count1 = 0;
-        for(int num : nums) {
-            if(num == 0) {
-                count0++;
+        int end0 = -1, start2 = nums.length;
+        while(start2 - 1 >= 0 && nums[start2 - 1] == 2) {
+            start2--;
+        }
+        int i = 0;
+        while(i < start2){
+            if(nums[i] == 0) {
+                if(i == end0 + 1) {
+                    i++;
+                }
+                else {
+                    nums[i] = nums[end0 + 1];
+                    nums[end0 + 1] = 0;
+                }
+                end0 += 1;
             }
-            else if(num == 1) {
-                count1++;
+            else if(nums[i] == 2) {
+                nums[i] = nums[start2 - 1];
+                nums[start2 - 1] = 2;
+                while(start2 - 1 >= 0 && nums[start2 - 2] == 2) {
+                    start2--;
+                }
             }
-        }
-        int index = 0;
-        while(index < count0) {
-            nums[index++] = 0;
-        }
-        while(index < count0 + count1) {
-            nums[index++] = 1;
-        }
-        while(index < nums.length) {
-            nums[index++] = 2;
+            else {
+                i++;
+            }
         }
     }
 }
