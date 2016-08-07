@@ -33,7 +33,7 @@ public class Solution {
             ListNode min = pq.poll();
             prev.next = min;
             prev = prev.next;
-            if(min.next != null) {
+            if(pq.size() > 0 && min.next != null) {
                 pq.offer(min.next);
             }
         }
