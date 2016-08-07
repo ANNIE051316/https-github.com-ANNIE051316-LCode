@@ -31,7 +31,7 @@ public class Solution {
         for(int[] direction : directions) {
             int newrow = row + direction[0];
             int newcol = col + direction[1];
-            if(newrow < 0 || newrow >= grid.length || newcol < 0 || newcol >= grid[0].length || gird[newrow][newcol] != '1') {
+            if(newrow < 0 || newrow >= grid.length || newcol < 0 || newcol >= grid[0].length || grid[newrow][newcol] != '1') {
                 continue;
             }
             
