@@ -16,12 +16,6 @@ return `[1,6],[8,10],[15,18]`.
 
 <div>
 
-<div id="company_tags" class="btn btn-xs btn-warning">Show Company Tags</div>
-
-<span class="hidebutton">[Bloomberg](/company/bloomberg/) [Facebook](/company/facebook/) [Google](/company/google/) [LinkedIn](/company/linkedin/) [Microsoft](/company/microsoft/) [Twitter](/company/twitter/) [Yelp](/company/yelp/)</span></div>
-
-<div>
-
 <div id="tags" class="btn btn-xs btn-warning">Show Tags</div>
 
 <span class="hidebutton">[Array](/tag/array/) [Sort](/tag/sort/)</span></div>
