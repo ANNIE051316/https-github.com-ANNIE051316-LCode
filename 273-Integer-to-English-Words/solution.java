@@ -12,42 +12,30 @@ public class Solution {
         int thindex = 0;
         
         while(num != 0) {
-            StringBuilder tmp = new StringBuilder();
-            int curnum = num % 1000;
-            if(curnum / 100 != 0) {
-                tmp.append(lessthan20[curnum / 100] + " Hundred");
-            }
-            curnum %= 100;
-            
-            if(curnum < 20 ) {
-                if(tmp.length() > 0 && curnum != 0) {
-                    tmp.append(" ");
-                }
-                tmp.append(lessthan20[curnum]);
-            }
-            else {
-                if(tmp.length() > 0) {
-                    tmp.append(" ");
-                }
-                
-                tmp.append(tens[curnum / 10]);
-                if(curnum % 10 > 0) {
-                    tmp.append(" " + lessthan20[curnum % 10]);
-                } 
-            }
-            if(tmp.length() > 0 && thindex > 0) {
-                tmp.append(" " + thousands[thindex]);    
-            }
-            if(tmp.length() > 0) {
-                if(sb.length() > 0) {
-                    tmp.append(" ");
-                }
+            if(num % 1000 != 0) {
+                String tmp = helper(num % 1000, tens, lessthan20);
+                tmp = tmp + thousands[thindex] + " ";
                 sb.insert(0, tmp);
             }
             num /= 1000;
             thindex++;
         }
         
-        return sb.length() == 0 ? "Zero" : sb.toString();
+        return sb.length() == 0 ? "Zero" : sb.toString().trim();
+     }
+     
+     public String helper(int num, String[] tens, String[] lessthan20) {
+         if(num == 0) {
+             return "";
+         }
+         else if(num < 20) {
+             return lessthan20[num] + " ";
+         }
+         else if(num < 100){
+             return tens[num / 10] + " " + helper(num % 10, tens, lessthan20);
+         }
+         else {
+             return lessthan20[num / 100] + " Hundred " + helper(num % 100, tens, lessthan20);
+         }
      }
 }
