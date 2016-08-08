@@ -31,7 +31,7 @@ public class LRUCache {
     
     public void set(int key, int value) {
         if(map.containsKey(key)) {
-            DNode cur = map.get(Key);
+            DNode cur = map.get(key);
             remove(cur);
             cur.val = value;
             inserthead(cur);
