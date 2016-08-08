@@ -9,26 +9,17 @@
  */
 public class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if(root == p || q == root) {
+        if(root == null || root == p || root == q) {
             return root;
         }
         
-        if(p == null) {
-            return q;
-        }
-        if(q == null) {
-            return p;
-        }
-        
-        if(root.val > Math.min(p.val, q.val) && root.val < Math.max(p.val, q.val)) {
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+        if(left != null && right != null) {
             return root;
-        }
-        else if(root.val < Math.min(p.val, q.val)) {
-            return lowestCommonAncestor(root.right, p, q);
         }
         else {
-            return lowestCommonAncestor(root.left, p, q);
+            return left == null ? right : left;
         }
-        
     }
 }
