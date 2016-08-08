@@ -17,10 +17,13 @@ public class Solution {
             map.get(key).add(s);
         }
         
-        for(List<String> list : map.values()) {
+      /*  for(List<String> list : map.values()) {
             res.add(list);
         }
         return res;
+        
+        */
+        return new ArrayList<List<String>>(map.values());
         
     }
 }
