@@ -1,17 +1,18 @@
 public class LRUCache {
-    class DNode {
-        int key; 
-        int value;
+    
+    public class DNode{
+        int key;
+        int val;
         DNode prev, next;
-        DNode(int key, int value) {
-            this.key = key; 
-            this.value = value;
-        } 
+        public DNode(int key, int val) {
+            this.key = key;
+            this.val = val;
+        }
     }
     
-    int capacity;
-    DNode head, tail;
     Map<Integer, DNode> map;
+    DNode head, tail;
+    int capacity;
     
     public LRUCache(int capacity) {
         this.capacity = capacity;
@@ -19,30 +20,30 @@ public class LRUCache {
     }
     
     public int get(int key) {
-        DNode curnode = map.get(key);
-        if(curnode == null) {
+        if(!map.containsKey(key)) {
             return -1;
         }
-        remove(curnode);
-        addToHead(curnode);
-        return curnode.value();
+        DNode cur = map.get(key);
+        remove(cur);
+        inserthead(cur);
+        return cur.val;
     }
     
     public void set(int key, int value) {
-        DNode curnode = map.get(key);
-        if(curnode == null) {
-            if(capacity == map.size()) {
+        if(map.containsKey(key)) {
+            DNode cur = map.get(Key);
+            remove(cur);
+            cur.val = value;
+            inserthead(cur);
+        }
+        else {
+            if(this.capacity == map.size()) {
                 map.remove(tail.key);
                 remove(tail);
             }
             DNode tmp = new DNode(key, value);
             map.put(key, tmp);
-            addToHead(tmp);
-        }
-        else {
-            remove(curnode);
-            curnode.value = value;
-            addToHead(curnode);
+            inserthead(tmp);
         }
     }
     
@@ -62,17 +63,15 @@ public class LRUCache {
         }
     }
     
-    public void addToHead(DNode node) {
+    public void inserthead(DNode node) {
         node.next = head;
+        node.prev = null;
         if(head != null) {
             head.prev = node;
         }
-        node.prev = null;
         head = node;
-        
         if(tail == null) {
-            tail = head;
+            tail = node;
         }
     }
-    
 }
