@@ -4,22 +4,22 @@ public class Solution {
             return 0;
         }
         
-        int left = 0, right = citations.length - 1;
+        int left = 0, right = citations.length;
         
         while(left <= right) {
             int mid = left + (right - left) / 2;
-            if(citations[mid] == citations.length - mid) {
+            
+            if(citations[mid] >= citations.length - mid && (mid == 0 || citations[mid - 1] <= citations.length - mid)) {
                 return citations.length - mid;
             }
             else if(citations[mid] < citations.length - mid) {
-                left = mid + 1;
+                right = mid - 1;
             }
             else {
-                right = mid - 1;
+                left = mid + 1;
             }
         }
         
         return citations.length - left;
-        
     }
 }
