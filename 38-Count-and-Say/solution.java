@@ -3,32 +3,27 @@ public class Solution {
         if(n <= 0) {
             return "";
         }
-        
-        StringBuilder sb = new StringBuilder("1");
-        for(int i = 1; i < n; i++) {
-            int sz = sb.length();
+        StringBuilder sb = new StringBuilder();
+        sb.append("1");
+        for(int i = 2; i <= n; i++) {
             StringBuilder tmp = new StringBuilder();
             char c = sb.charAt(0);
             int count = 1;
-            for(int j = 1; j < sz; j++) {
+            for(int j = 1; j < sb.length(); j++) {
                 char t = sb.charAt(j);
                 if(c == t) {
                     count++;
+                    continue;
                 }
-                if(c != t) {
-                    tmp.append(count);
-                    tmp.append(c);
-                    c = t;
-                    count = 1;
-                }
+                tmp.append(count);
+                tmp.append(c);
+                c = t;
+                count = 1;
             }
-         
             tmp.append(count);
-               tmp.append(c);
-            
+            tmp.append(c);
             sb = tmp;
         }
-        
         return sb.toString();
     }
 }
