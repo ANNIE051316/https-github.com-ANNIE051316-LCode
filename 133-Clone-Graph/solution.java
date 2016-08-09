@@ -8,6 +8,9 @@
  */
 public class Solution {
     public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        if(node == null) {
+            return null;
+        }
         Map<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap();
         Queue<UndirectedGraphNode> queue = new LinkedList();
         queue.offer(node);
