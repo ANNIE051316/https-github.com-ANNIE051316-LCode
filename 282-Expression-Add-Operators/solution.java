@@ -1,40 +1,39 @@
 public class Solution {
     public List<String> addOperators(String num, int target) {
         List<String> res = new ArrayList();
-        helper(num, 0, 0, 0, target, new StringBuilder(), res);
+        
+        if(num == null || num.length() == 0) {
+            return res;
+        }
+        
+        for(int i = 1; i <= num.length(); i++) {
+            String sub = num.substring(0, i);
+            if(sub.length() > 1 && sub.charAt(0) == '0') {
+                break;
+            }
+            helper(num, i, Long.parseLong(sub), Long.parseLong(sub), sub, target, res);
+        }
+        
         return res;
     }
     
-    public void helper(String s, int start, long cursum, long prev, int target, StringBuilder path, List<String> res) {
-        if(start == s.length()) {
+    public void helper(String num, int index, long cursum, long prenum, String path, int target, List<String> res) {
+        if(index == num.length()) {
             if(cursum == target) {
-                res.add(path.toString());
+                res.add(path);
             }
             return;
         }
-        int len = path.length();
-        for(int i = start + 1; i <= s.length(); i++) {
-            String sub = s.substring(start, i);
-            if(sub.startsWith("0") && sub.length() > 1) {
+        
+        for(int i = index + 1; i <= num.length(); i++) {
+            String sub = num.substring(index, i);
+            if(sub.length() > 1 && sub.charAt(0) == '0') {
                 break;
             }
-            long tmp = Long.parseLong(sub);
-            if(path.length() != 0) {
-                path.append("+" + sub);
-                helper(s, i, cursum + tmp, tmp, target, path, res);
-                path.delete(len, path.length());
-                path.append("-" + sub);
-                helper(s, i, cursum - tmp, -tmp, target, path, res);
-                path.delete(len, path.length());
-                path.append("*" + sub);
-                helper(s, i, cursum - prev + prev * tmp, prev * tmp, target, path, res);
-                path.delete(len, path.length());
-            }
-            else {
-                path.append(sub);
-                helper(s, i, cursum + tmp, tmp, target, path, res);
-                path.delete(len, path.length());
-            }
+            long curnum = Long.parseLong(sub);
+            helper(num, i, cursum + curnum, curnum, path +"+" + sub, target, res);
+            helper(num, i, cursum - curnum, -curnum, path + '-' + sub, target, res);
+            helper(num, i, cursum - prenum + prenum * curnum, prenum * curnum, path + "*" + sub, target, res);
         }
     }
 }
